@@ -6,41 +6,51 @@
 
 <style>
 body {
-    background: #111;
-    color: white;
-    text-align: center;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #111, #333);
     font-family: Arial, sans-serif;
 }
 
-/* título */
-h1 {
-    margin-top: 30px;
-    font-size: 35px;
+.container {
+    text-align: center;
+    background: #000;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
 }
 
 /* imagem */
 img {
-    margin-top: 20px;
-    width: 400px;
-    border-radius: 20px;
-    box-shadow: 0 0 20px white;
+    width: 350px;
+    border-radius: 15px;
 }
 
-/* texto meme */
+/* texto */
+h1 {
+    color: white;
+}
+
 .frase {
-    font-size: 25px;
-    margin-top: 15px;
+    color: yellow;
+    font-size: 22px;
+    margin-top: 10px;
 }
 </style>
 
 </head>
 <body>
 
-<h1>MEU SITE 😂</h1>
+<div class="container">
+    <h1>MEU SITE 😂</h1>
 
-<img src="foto.jpg" alt="minha foto">
+    <img src="foto.jpg" alt="minha foto">
 
-<div class="frase">EU SOU NARIZUDA 🤥</div>
+    <div class="frase">EU SOU NARIZUDA 🤥</div>
+</div>
 
 </body>
 </html>
