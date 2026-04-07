@@ -2,35 +2,92 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Meme 😂</title>
+<title>NARIZUDA 😂</title>
 
 <style>
 body {
+    margin: 0;
     background: black;
-    color: white;
+    overflow: hidden;
     text-align: center;
     font-family: Arial;
 }
 
-img {
-    margin-top: 30px;
-    width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px white;
+/* fundo piscando */
+body {
+    animation: cores 2s infinite alternate;
 }
 
+@keyframes cores {
+    from { background: purple; }
+    to { background: red; }
+}
+
+.container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* imagem */
+img {
+    width: 400px;
+    border-radius: 20px;
+    animation: girar 2s infinite alternate;
+}
+
+/* leve rotação */
+@keyframes girar {
+    from { transform: rotate(-3deg); }
+    to { transform: rotate(3deg); }
+}
+
+/* texto piscando */
 .texto {
-    font-size: 30px;
+    font-size: 35px;
+    font-weight: bold;
+    animation: piscar 0.3s infinite;
+}
+
+/* cores malucas */
+@keyframes piscar {
+    0% { color: yellow; }
+    25% { color: cyan; }
+    50% { color: lime; }
+    75% { color: red; }
+    100% { color: white; }
+}
+
+/* botão meme */
+button {
     margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 </style>
 
 </head>
 <body>
 
-<h1 class="texto">EU SOU NARIZUDA 🤥😂</h1>
+<div class="container">
+    <div class="texto">EU SOU NARIZUDA 🤥😂</div>
 
-<img src="foto.jpg" alt="meme">
+    <img id="foto" src="foto.jpg">
+
+    <br>
+
+    <button onclick="zoom()">AUMENTAR MAIS 😈</button>
+</div>
+
+<script>
+function zoom() {
+    let img = document.getElementById("foto");
+    img.style.transform = "scale(1.5) rotate(10deg)";
+}
+</script>
 
 </body>
 </html>
