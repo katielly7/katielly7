@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>2º Ano do Ensino Médio</title>
+    <title>Portal de Estudos - 2º Ano</title>
 
     <style>
         * {
@@ -17,6 +16,7 @@
             font-family: Arial, sans-serif;
             background-color: #f2f6fa;
             color: #333;
+            transition: 0.3s;
         }
 
         header {
@@ -33,13 +33,15 @@
 
         header p {
             font-size: 18px;
-            margin-top: 12px;
         }
 
         nav {
             background-color: #00264d;
-            text-align: center;
             padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         nav a {
@@ -53,13 +55,48 @@
             color: #66ccff;
         }
 
+        .controles {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #pesquisa {
+            padding: 13px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #0066cc;
+            color: white;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #004c99;
+        }
+
         main {
             max-width: 1100px;
-            margin: 30px auto;
+            margin: auto;
             padding: 20px;
         }
 
-        .introducao {
+        .introducao,
+        .progresso,
+        .anotacoes,
+        .quiz {
             background-color: white;
             padding: 25px;
             border-radius: 12px;
@@ -67,7 +104,7 @@
             margin-bottom: 30px;
         }
 
-        .introducao h2 {
+        h2 {
             color: #0066cc;
         }
 
@@ -83,7 +120,7 @@
             border-radius: 12px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             border-top: 5px solid #0066cc;
-            transition: transform 0.2s;
+            transition: 0.2s;
         }
 
         .materia:hover {
@@ -99,9 +136,71 @@
             line-height: 1.6;
         }
 
-        .materia ul {
+        .conteudo {
+            display: none;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .conteudo ul {
             line-height: 1.8;
-            padding-left: 20px;
+        }
+
+        .estudada {
+            background-color: #e5ffe9;
+            border-top-color: #21a644;
+        }
+
+        .barra {
+            width: 100%;
+            height: 25px;
+            background-color: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        #barraProgresso {
+            width: 0%;
+            height: 100%;
+            background-color: #21a644;
+            transition: 0.5s;
+        }
+
+        #textoProgresso {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            resize: vertical;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: Arial;
+            font-size: 15px;
+        }
+
+        .tarefa {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .tarefa input {
+            margin-right: 10px;
+        }
+
+        .quiz button {
+            margin-top: 10px;
+        }
+
+        #resultadoQuiz {
+            font-weight: bold;
+            margin-top: 15px;
         }
 
         .destaque {
@@ -120,8 +219,44 @@
             margin-top: 40px;
         }
 
-        footer p {
-            margin: 5px;
+        /* MODO ESCURO */
+
+        body.escuro {
+            background-color: #121820;
+            color: #eeeeee;
+        }
+
+        body.escuro .introducao,
+        body.escuro .progresso,
+        body.escuro .anotacoes,
+        body.escuro .quiz,
+        body.escuro .materia {
+            background-color: #1e2936;
+            color: #eeeeee;
+        }
+
+        body.escuro .materia h3,
+        body.escuro h2 {
+            color: #66c7ff;
+        }
+
+        body.escuro .conteudo {
+            border-color: #45515e;
+        }
+
+        body.escuro .tarefa {
+            background-color: #273442;
+        }
+
+        body.escuro #pesquisa,
+        body.escuro textarea {
+            background-color: #273442;
+            color: white;
+            border-color: #536273;
+        }
+
+        body.escuro .destaque {
+            background-color: #17344d;
         }
 
         @media (max-width: 600px) {
@@ -133,49 +268,90 @@
                 display: block;
                 margin: 8px;
             }
+
+            #pesquisa {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <h1>📚 2º Ano do Ensino Médio</h1>
-        <p>Portal de Estudos e Conhecimentos</p>
-    </header>
+<header id="inicio">
+    <h1>📚 2º Ano do Ensino Médio</h1>
+    <p>Portal de Estudos Interativo</p>
+</header>
 
-    <nav>
-        <a href="#portugues">Português</a>
-        <a href="#matematica">Matemática</a>
-        <a href="#ciencias">Ciências</a>
-        <a href="#humanas">Humanas</a>
-        <a href="#tecnicas">Técnicas</a>
-    </nav>
+<nav>
+    <a href="#inicio">Início</a>
+    <a href="#materias">Matérias</a>
+    <a href="#anotacoes">Anotações</a>
+    <a href="#quiz">Quiz</a>
+</nav>
 
-    <main>
+<div class="controles">
+    <input
+        type="text"
+        id="pesquisa"
+        placeholder="🔎 Pesquisar matéria..."
+        onkeyup="pesquisarMateria()"
+    >
 
-        <section class="introducao">
-            <h2>📖 Sobre o 2º Ano</h2>
+    <button onclick="alternarTema()">
+        🌙 Modo Escuro
+    </button>
 
-            <p>
-                O 2º ano do Ensino Médio é uma etapa importante da formação escolar.
-                Durante esse período, os estudantes aprofundam seus conhecimentos
-                em diferentes áreas e desenvolvem habilidades importantes para a
-                vida acadêmica, profissional e pessoal.
-            </p>
+    <button onclick="marcarTodas()">
+        ✅ Marcar Todas
+    </button>
 
-            <p>
-                Este site apresenta as principais matérias estudadas durante o ano,
-                incluindo as disciplinas da formação geral e as disciplinas
-                relacionadas à área de tecnologia.
-            </p>
-        </section>
+    <button onclick="desmarcarTodas()">
+        🔄 Limpar Progresso
+    </button>
+</div>
 
-        <div class="materias">
+<main>
 
-            <section class="materia" id="portugues">
-                <h3>📘 Língua Portuguesa</h3>
-                <p>Estudo da língua, literatura e produção de textos.</p>
+    <section class="introducao">
+        <h2>📖 Bem-vindo!</h2>
+
+        <p>
+            Este é um portal de estudos criado para reunir as matérias
+            do 2º ano do Ensino Médio em um único lugar.
+        </p>
+
+        <p>
+            Clique em uma matéria para visualizar os principais conteúdos.
+            Você também pode pesquisar matérias, marcar seus estudos,
+            fazer anotações e testar seus conhecimentos no quiz.
+        </p>
+    </section>
+
+    <section class="progresso">
+        <h2>📊 Meu Progresso</h2>
+
+        <p id="textoProgresso">
+            Você estudou 0 de 19 matérias.
+        </p>
+
+        <div class="barra">
+            <div id="barraProgresso"></div>
+        </div>
+    </section>
+
+    <h2 id="materias">📚 Minhas Matérias</h2>
+
+    <div class="materias">
+
+        <section class="materia">
+            <h3>📘 Língua Portuguesa</h3>
+            <p>Estudo da língua, literatura e produção de textos.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Gramática</li>
                     <li>Literatura</li>
@@ -183,11 +359,17 @@
                     <li>Produção textual</li>
                     <li>Gêneros textuais</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia" id="matematica">
-                <h3>📐 Matemática</h3>
-                <p>Desenvolvimento do raciocínio lógico e matemático.</p>
+        <section class="materia">
+            <h3>📐 Matemática</h3>
+            <p>Desenvolvimento do raciocínio lógico e matemático.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Funções</li>
                     <li>Progressões</li>
@@ -195,11 +377,17 @@
                     <li>Probabilidade</li>
                     <li>Estatística</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🇬🇧 Língua Inglesa</h3>
-                <p>Desenvolvimento da comunicação e compreensão da língua inglesa.</p>
+        <section class="materia">
+            <h3>🇬🇧 Língua Inglesa</h3>
+            <p>Desenvolvimento da comunicação em inglês.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Vocabulário</li>
                     <li>Gramática</li>
@@ -207,23 +395,35 @@
                     <li>Conversação</li>
                     <li>Produção escrita</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🌎 Geografia</h3>
-                <p>Estudo do espaço geográfico, sociedade e natureza.</p>
+        <section class="materia">
+            <h3>🌎 Geografia</h3>
+            <p>Estudo do espaço geográfico e da sociedade.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Globalização</li>
                     <li>Economia</li>
                     <li>Industrialização</li>
                     <li>População</li>
-                    <li>Questões ambientais</li>
+                    <li>Meio ambiente</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🏛️ História</h3>
-                <p>Estudo dos acontecimentos e transformações das sociedades.</p>
+        <section class="materia">
+            <h3>🏛️ História</h3>
+            <p>Estudo dos acontecimentos e transformações históricas.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Brasil Império</li>
                     <li>Brasil República</li>
@@ -231,11 +431,17 @@
                     <li>Imperialismo</li>
                     <li>Guerras e conflitos</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>⚛️ Física</h3>
-                <p>Estudo dos fenômenos físicos e das leis da natureza.</p>
+        <section class="materia">
+            <h3>⚛️ Física</h3>
+            <p>Estudo dos fenômenos físicos e das leis da natureza.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Termologia</li>
                     <li>Calor e temperatura</li>
@@ -243,11 +449,17 @@
                     <li>Ondas</li>
                     <li>Eletricidade</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🧪 Química</h3>
-                <p>Estudo da matéria, suas propriedades e transformações.</p>
+        <section class="materia">
+            <h3>🧪 Química</h3>
+            <p>Estudo da matéria e suas transformações.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Reações químicas</li>
                     <li>Soluções</li>
@@ -255,11 +467,17 @@
                     <li>Ácidos e bases</li>
                     <li>Estequiometria</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🧬 Biologia</h3>
-                <p>Estudo dos seres vivos e dos processos biológicos.</p>
+        <section class="materia">
+            <h3>🧬 Biologia</h3>
+            <p>Estudo dos seres vivos e dos processos biológicos.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Genética</li>
                     <li>Evolução</li>
@@ -267,11 +485,17 @@
                     <li>Citologia</li>
                     <li>Fisiologia</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>💭 Filosofia</h3>
-                <p>Reflexão sobre conhecimento, ética, sociedade e existência.</p>
+        <section class="materia">
+            <h3>💭 Filosofia</h3>
+            <p>Reflexão sobre conhecimento, ética e sociedade.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Ética</li>
                     <li>Política</li>
@@ -279,11 +503,17 @@
                     <li>Filosofia moderna</li>
                     <li>Filosofia contemporânea</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>👥 Sociologia</h3>
-                <p>Estudo da sociedade e das relações entre os indivíduos.</p>
+        <section class="materia">
+            <h3>👥 Sociologia</h3>
+            <p>Estudo da sociedade e das relações humanas.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Cultura</li>
                     <li>Desigualdade social</li>
@@ -291,11 +521,17 @@
                     <li>Política</li>
                     <li>Movimentos sociais</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🎨 Artes</h3>
-                <p>Desenvolvimento da criatividade e estudo das diferentes formas de arte.</p>
+        <section class="materia">
+            <h3>🎨 Artes</h3>
+            <p>Estudo da criatividade e das diferentes formas de arte.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Artes visuais</li>
                     <li>Música</li>
@@ -303,11 +539,17 @@
                     <li>Dança</li>
                     <li>História da arte</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🏃 Educação Física</h3>
-                <p>Desenvolvimento corporal, esportivo e qualidade de vida.</p>
+        <section class="materia">
+            <h3>🏃 Educação Física</h3>
+            <p>Estudo dos esportes, saúde e atividades físicas.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Esportes</li>
                     <li>Jogos</li>
@@ -315,16 +557,17 @@
                     <li>Atividades físicas</li>
                     <li>Qualidade de vida</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <!-- MATÉRIAS TÉCNICAS -->
+        <section class="materia">
+            <h3>🎯 Projeto de Vida</h3>
+            <p>Planejamento pessoal, acadêmico e profissional.</p>
 
-            <section class="materia" id="tecnicas">
-                <h3>🎯 Projeto de Vida</h3>
-                <p>
-                    Desenvolvimento pessoal e preparação para escolhas acadêmicas
-                    e profissionais.
-                </p>
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Objetivos pessoais</li>
                     <li>Planejamento</li>
@@ -332,14 +575,17 @@
                     <li>Responsabilidade</li>
                     <li>Futuro profissional</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>💻 S.O. — Sistemas Operacionais</h3>
-                <p>
-                    Estudo dos sistemas responsáveis pelo funcionamento e
-                    gerenciamento dos computadores.
-                </p>
+        <section class="materia">
+            <h3>💻 S.O. — Sistemas Operacionais</h3>
+            <p>Estudo dos sistemas que gerenciam os computadores.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Windows e Linux</li>
                     <li>Arquivos e pastas</li>
@@ -347,13 +593,17 @@
                     <li>Memória</li>
                     <li>Gerenciamento do sistema</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>☕ POO Java</h3>
-                <p>
-                    Programação Orientada a Objetos utilizando a linguagem Java.
-                </p>
+        <section class="materia">
+            <h3>☕ POO Java</h3>
+            <p>Programação Orientada a Objetos utilizando Java.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Classes e objetos</li>
                     <li>Atributos</li>
@@ -361,13 +611,17 @@
                     <li>Encapsulamento</li>
                     <li>Herança</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🖥️ AMC</h3>
-                <p>
-                    Arquitetura e Manutenção de Computadores.
-                </p>
+        <section class="materia">
+            <h3>🖥️ AMC</h3>
+            <p>Arquitetura e Manutenção de Computadores.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Componentes do computador</li>
                     <li>Placa-mãe</li>
@@ -375,13 +629,17 @@
                     <li>Memória RAM</li>
                     <li>Manutenção de computadores</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🤖 N.R. — Noções de Robótica</h3>
-                <p>
-                    Introdução à robótica, sensores e sistemas automatizados.
-                </p>
+        <section class="materia">
+            <h3>🤖 N.R. — Noções de Robótica</h3>
+            <p>Introdução à robótica e aos sistemas automatizados.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Sensores</li>
                     <li>Atuadores</li>
@@ -389,13 +647,17 @@
                     <li>Programação</li>
                     <li>Robôs</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>🌐 P.W. — Programação Web</h3>
-                <p>
-                    Desenvolvimento de páginas e aplicações para a internet.
-                </p>
+        <section class="materia">
+            <h3>🌐 P.W. — Programação Web</h3>
+            <p>Desenvolvimento de páginas e aplicações para a internet.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>HTML</li>
                     <li>CSS</li>
@@ -403,14 +665,17 @@
                     <li>Estrutura de páginas</li>
                     <li>Desenvolvimento Web</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-            <section class="materia">
-                <h3>💰 Educação Financeira</h3>
-                <p>
-                    Desenvolvimento de conhecimentos para organizar e administrar
-                    melhor os recursos financeiros.
-                </p>
+        <section class="materia">
+            <h3>💰 Educação Financeira</h3>
+            <p>Aprendizado sobre organização e planejamento financeiro.</p>
+
+            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
+            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+
+            <div class="conteudo">
                 <ul>
                     <li>Orçamento</li>
                     <li>Economia</li>
@@ -418,22 +683,357 @@
                     <li>Consumo consciente</li>
                     <li>Poupança</li>
                 </ul>
-            </section>
+            </div>
+        </section>
 
-        </div>
+    </div>
 
-        <div class="destaque">
-            💡 <strong>Importante:</strong> As matérias e os conteúdos podem variar
-            de acordo com a escola e a organização curricular.
-        </div>
+    <section class="anotacoes" id="anotacoes">
+        <h2>📝 Minhas Anotações</h2>
 
-    </main>
+        <p>
+            Escreva aqui suas anotações, lembretes ou conteúdos importantes:
+        </p>
 
-    <footer>
-        <p>📚 Projeto Educacional - 2º Ano do Ensino Médio</p>
-        <p>Programação Web e Desenvolvimento de Conhecimentos</p>
-    </footer>
+        <textarea id="campoAnotacoes"
+            placeholder="Digite suas anotações aqui..."></textarea>
+
+        <br><br>
+
+        <button onclick="salvarAnotacoes()">
+            💾 Salvar Anotações
+        </button>
+
+        <button onclick="apagarAnotacoes()">
+            🗑️ Apagar
+        </button>
+
+        <p id="mensagemAnotacao"></p>
+    </section>
+
+    <section class="quiz" id="quiz">
+        <h2>🎯 Quiz de Conhecimentos</h2>
+
+        <p>
+            <strong>1. Qual linguagem é usada para estruturar uma página Web?</strong>
+        </p>
+
+        <label>
+            <input type="radio" name="pergunta1" value="html">
+            HTML
+        </label>
+
+        <br>
+
+        <label>
+            <input type="radio" name="pergunta1" value="java">
+            Java
+        </label>
+
+        <br>
+
+        <label>
+            <input type="radio" name="pergunta1" value="python">
+            Python
+        </label>
+
+        <p>
+            <strong>2. Qual matéria estuda os seres vivos?</strong>
+        </p>
+
+        <label>
+            <input type="radio" name="pergunta2" value="fisica">
+            Física
+        </label>
+
+        <br>
+
+        <label>
+            <input type="radio" name="pergunta2" value="biologia">
+            Biologia
+        </label>
+
+        <br>
+
+        <label>
+            <input type="radio" name="pergunta2" value="historia">
+            História
+        </label>
+
+        <p>
+            <strong>3. O que significa POO?</strong>
+        </p>
+
+        <label>
+            <input type="radio" name="pergunta3" value="a">
+            Programação Orientada a Objetos
+        </label>
+
+        <br>
+
+        <label>
+            <input type="radio" name="pergunta3" value="b">
+            Programa Operacional Online
+        </label>
+
+        <br>
+
+        <label>
+            <input type="radio" name="pergunta3" value="c">
+            Projeto de Organização
+        </label>
+
+        <br><br>
+
+        <button onclick="corrigirQuiz()">
+            ✅ Ver Resultado
+        </button>
+
+        <p id="resultadoQuiz"></p>
+    </section>
+
+    <div class="destaque">
+        💡 <strong>Dica:</strong> Estude um pouco todos os dias,
+        organize suas anotações e acompanhe seu progresso.
+    </div>
+
+</main>
+
+<footer>
+    <p>📚 Portal de Estudos - 2º Ano do Ensino Médio</p>
+    <p>Projeto de Programação Web</p>
+</footer>
+
+<script>
+
+    // ABRIR E FECHAR CONTEÚDOS
+
+    function abrirConteudo(botao) {
+
+        let conteudo = botao.parentElement.querySelector(".conteudo");
+
+        if (conteudo.style.display === "block") {
+            conteudo.style.display = "none";
+            botao.textContent = "Ver conteúdos";
+        } else {
+            conteudo.style.display = "block";
+            botao.textContent = "Esconder conteúdos";
+        }
+    }
+
+
+    // MARCAR MATÉRIA COMO ESTUDADA
+
+    function marcarEstudada(botao) {
+
+        let materia = botao.parentElement;
+
+        materia.classList.toggle("estudada");
+
+        if (materia.classList.contains("estudada")) {
+            botao.textContent = "↩️ Desmarcar estudo";
+        } else {
+            botao.textContent = "Marcar como estudada";
+        }
+
+        atualizarProgresso();
+    }
+
+
+    // ATUALIZAR PROGRESSO
+
+    function atualizarProgresso() {
+
+        let materias = document.querySelectorAll(".materia");
+        let estudadas = document.querySelectorAll(".materia.estudada");
+
+        let total = materias.length;
+        let quantidade = estudadas.length;
+
+        let porcentagem = (quantidade / total) * 100;
+
+        document.getElementById("barraProgresso").style.width =
+            porcentagem + "%";
+
+        document.getElementById("textoProgresso").textContent =
+            "Você estudou " + quantidade + " de " + total +
+            " matérias (" + Math.round(porcentagem) + "%).";
+    }
+
+
+    // MARCAR TODAS
+
+    function marcarTodas() {
+
+        let materias = document.querySelectorAll(".materia");
+
+        materias.forEach(function(materia) {
+
+            materia.classList.add("estudada");
+
+            let botoes = materia.querySelectorAll("button");
+
+            if (botoes.length > 1) {
+                botoes[1].textContent = "↩️ Desmarcar estudo";
+            }
+        });
+
+        atualizarProgresso();
+    }
+
+
+    // DESMARCAR TODAS
+
+    function desmarcarTodas() {
+
+        let materias = document.querySelectorAll(".materia");
+
+        materias.forEach(function(materia) {
+
+            materia.classList.remove("estudada");
+
+            let botoes = materia.querySelectorAll("button");
+
+            if (botoes.length > 1) {
+                botoes[1].textContent = "Marcar como estudada";
+            }
+        });
+
+        atualizarProgresso();
+    }
+
+
+    // PESQUISAR MATÉRIA
+
+    function pesquisarMateria() {
+
+        let texto = document.getElementById("pesquisa")
+            .value.toLowerCase();
+
+        let materias = document.querySelectorAll(".materia");
+
+        materias.forEach(function(materia) {
+
+            let nome = materia.querySelector("h3")
+                .textContent.toLowerCase();
+
+            if (nome.includes(texto)) {
+                materia.style.display = "block";
+            } else {
+                materia.style.display = "none";
+            }
+        });
+    }
+
+
+    // MODO ESCURO
+
+    function alternarTema() {
+
+        document.body.classList.toggle("escuro");
+
+        let botao = document.querySelector(".controles button");
+
+        if (document.body.classList.contains("escuro")) {
+            botao.textContent = "☀️ Modo Claro";
+        } else {
+            botao.textContent = "🌙 Modo Escuro";
+        }
+    }
+
+
+    // SALVAR ANOTAÇÕES
+
+    function salvarAnotacoes() {
+
+        let texto = document.getElementById("campoAnotacoes").value;
+
+        localStorage.setItem("anotacoes", texto);
+
+        document.getElementById("mensagemAnotacao").textContent =
+            "✅ Anotações salvas com sucesso!";
+    }
+
+
+    // APAGAR ANOTAÇÕES
+
+    function apagarAnotacoes() {
+
+        document.getElementById("campoAnotacoes").value = "";
+
+        localStorage.removeItem("anotacoes");
+
+        document.getElementById("mensagemAnotacao").textContent =
+            "🗑️ Anotações apagadas.";
+    }
+
+
+    // CARREGAR ANOTAÇÕES AO ABRIR A PÁGINA
+
+    window.onload = function() {
+
+        let anotacoes = localStorage.getItem("anotacoes");
+
+        if (anotacoes) {
+            document.getElementById("campoAnotacoes").value =
+                anotacoes;
+        }
+
+        atualizarProgresso();
+    };
+
+
+    // CORRIGIR QUIZ
+
+    function corrigirQuiz() {
+
+        let pontos = 0;
+
+        let pergunta1 =
+            document.querySelector('input[name="pergunta1"]:checked');
+
+        let pergunta2 =
+            document.querySelector('input[name="pergunta2"]:checked');
+
+        let pergunta3 =
+            document.querySelector('input[name="pergunta3"]:checked');
+
+
+        if (pergunta1 && pergunta1.value === "html") {
+            pontos++;
+        }
+
+        if (pergunta2 && pergunta2.value === "biologia") {
+            pontos++;
+        }
+
+        if (pergunta3 && pergunta3.value === "a") {
+            pontos++;
+        }
+
+
+        let resultado =
+            document.getElementById("resultadoQuiz");
+
+
+        if (pontos === 3) {
+            resultado.textContent =
+                "🎉 Parabéns! Você acertou 3 de 3 questões!";
+        } else if (pontos === 2) {
+            resultado.textContent =
+                "👏 Muito bem! Você acertou 2 de 3 questões!";
+        } else if (pontos === 1) {
+            resultado.textContent =
+                "📚 Você acertou 1 de 3. Continue estudando!";
+        } else {
+            resultado.textContent =
+                "💪 Você não acertou nenhuma. Não desista, tente novamente!";
+        }
+    }
+
+</script>
 
 </body>
 </html>
 ```
+
