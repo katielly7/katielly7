@@ -1,108 +1,439 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Mochila Virtual - 2º Ano EMTI</title>
+
+    <title>2º Ano do Ensino Médio</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #eef2f7;
+        * {
+            box-sizing: border-box;
         }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f6fa;
+            color: #333;
+        }
+
         header {
-            background-color: #34495e;
+            background: linear-gradient(135deg, #0066cc, #003366);
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 45px 20px;
         }
-        section {
-            padding: 20px;
+
+        header h1 {
+            margin: 0;
+            font-size: 38px;
         }
-        .materia {
-            background: white;
+
+        header p {
+            font-size: 18px;
+            margin-top: 12px;
+        }
+
+        nav {
+            background-color: #00264d;
+            text-align: center;
             padding: 15px;
-            margin: 15px 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-        .materia h2 {
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #66ccff;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .introducao {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .introducao h2 {
+            color: #0066cc;
+        }
+
+        .materias {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .materia {
+            background-color: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 5px solid #0066cc;
+            transition: transform 0.2s;
+        }
+
+        .materia:hover {
+            transform: translateY(-5px);
+        }
+
+        .materia h3 {
+            color: #0055aa;
             margin-top: 0;
         }
-        a {
-            color: #2980b9;
-            text-decoration: none;
+
+        .materia p {
+            line-height: 1.6;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .materia ul {
+            line-height: 1.8;
+            padding-left: 20px;
         }
+
+        .destaque {
+            background-color: #e6f4ff;
+            border-left: 5px solid #0066cc;
+            padding: 18px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
         footer {
-            background-color: #34495e;
+            background-color: #00264d;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav a {
+                display: block;
+                margin: 8px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>📚 Mochila Virtual</h1>
-    <p>2º Ano - Ensino Médio em Tempo Integral</p>
-</header>
+    <header>
+        <h1>📚 2º Ano do Ensino Médio</h1>
+        <p>Portal de Estudos e Conhecimentos</p>
+    </header>
 
-<section>
+    <nav>
+        <a href="#portugues">Português</a>
+        <a href="#matematica">Matemática</a>
+        <a href="#ciencias">Ciências</a>
+        <a href="#humanas">Humanas</a>
+        <a href="#tecnicas">Técnicas</a>
+    </nav>
 
-    <div class="materia">
-        <h2>📖 Português</h2>
-        <p>Anotações, redações e atividades.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+    <main>
 
-    <div class="materia">
-        <h2>➗ Matemática</h2>
-        <p>Exercícios, fórmulas e resolução de problemas.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+        <section class="introducao">
+            <h2>📖 Sobre o 2º Ano</h2>
 
-    <div class="materia">
-        <h2>🌎 Geografia</h2>
-        <p>Mapas, estudos e resumos.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+            <p>
+                O 2º ano do Ensino Médio é uma etapa importante da formação escolar.
+                Durante esse período, os estudantes aprofundam seus conhecimentos
+                em diferentes áreas e desenvolvem habilidades importantes para a
+                vida acadêmica, profissional e pessoal.
+            </p>
 
-    <div class="materia">
-        <h2>🏛️ História</h2>
-        <p>Linha do tempo e conteúdos históricos.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+            <p>
+                Este site apresenta as principais matérias estudadas durante o ano,
+                incluindo as disciplinas da formação geral e as disciplinas
+                relacionadas à área de tecnologia.
+            </p>
+        </section>
 
-    <div class="materia">
-        <h2>🔬 Ciências / Biologia</h2>
-        <p>Conteúdos sobre vida e natureza.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+        <div class="materias">
 
-    <div class="materia">
-        <h2>⚗️ Química</h2>
-        <p>Fórmulas, reações e experimentos.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+            <section class="materia" id="portugues">
+                <h3>📘 Língua Portuguesa</h3>
+                <p>Estudo da língua, literatura e produção de textos.</p>
+                <ul>
+                    <li>Gramática</li>
+                    <li>Literatura</li>
+                    <li>Interpretação de texto</li>
+                    <li>Produção textual</li>
+                    <li>Gêneros textuais</li>
+                </ul>
+            </section>
 
-    <div class="materia">
-        <h2>⚡ Física</h2>
-        <p>Leis, cálculos e fenômenos físicos.</p>
-        <a href="#">Acessar conteúdos</a>
-    </div>
+            <section class="materia" id="matematica">
+                <h3>📐 Matemática</h3>
+                <p>Desenvolvimento do raciocínio lógico e matemático.</p>
+                <ul>
+                    <li>Funções</li>
+                    <li>Progressões</li>
+                    <li>Geometria</li>
+                    <li>Probabilidade</li>
+                    <li>Estatística</li>
+                </ul>
+            </section>
 
-</section>
+            <section class="materia">
+                <h3>🇬🇧 Língua Inglesa</h3>
+                <p>Desenvolvimento da comunicação e compreensão da língua inglesa.</p>
+                <ul>
+                    <li>Vocabulário</li>
+                    <li>Gramática</li>
+                    <li>Interpretação de textos</li>
+                    <li>Conversação</li>
+                    <li>Produção escrita</li>
+                </ul>
+            </section>
 
-<footer>
-    <p>Feito por estudante - 2026</p>
-</footer>
+            <section class="materia">
+                <h3>🌎 Geografia</h3>
+                <p>Estudo do espaço geográfico, sociedade e natureza.</p>
+                <ul>
+                    <li>Globalização</li>
+                    <li>Economia</li>
+                    <li>Industrialização</li>
+                    <li>População</li>
+                    <li>Questões ambientais</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🏛️ História</h3>
+                <p>Estudo dos acontecimentos e transformações das sociedades.</p>
+                <ul>
+                    <li>Brasil Império</li>
+                    <li>Brasil República</li>
+                    <li>Revoluções</li>
+                    <li>Imperialismo</li>
+                    <li>Guerras e conflitos</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>⚛️ Física</h3>
+                <p>Estudo dos fenômenos físicos e das leis da natureza.</p>
+                <ul>
+                    <li>Termologia</li>
+                    <li>Calor e temperatura</li>
+                    <li>Óptica</li>
+                    <li>Ondas</li>
+                    <li>Eletricidade</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🧪 Química</h3>
+                <p>Estudo da matéria, suas propriedades e transformações.</p>
+                <ul>
+                    <li>Reações químicas</li>
+                    <li>Soluções</li>
+                    <li>Química orgânica</li>
+                    <li>Ácidos e bases</li>
+                    <li>Estequiometria</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🧬 Biologia</h3>
+                <p>Estudo dos seres vivos e dos processos biológicos.</p>
+                <ul>
+                    <li>Genética</li>
+                    <li>Evolução</li>
+                    <li>Ecologia</li>
+                    <li>Citologia</li>
+                    <li>Fisiologia</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>💭 Filosofia</h3>
+                <p>Reflexão sobre conhecimento, ética, sociedade e existência.</p>
+                <ul>
+                    <li>Ética</li>
+                    <li>Política</li>
+                    <li>Conhecimento</li>
+                    <li>Filosofia moderna</li>
+                    <li>Filosofia contemporânea</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>👥 Sociologia</h3>
+                <p>Estudo da sociedade e das relações entre os indivíduos.</p>
+                <ul>
+                    <li>Cultura</li>
+                    <li>Desigualdade social</li>
+                    <li>Trabalho</li>
+                    <li>Política</li>
+                    <li>Movimentos sociais</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🎨 Artes</h3>
+                <p>Desenvolvimento da criatividade e estudo das diferentes formas de arte.</p>
+                <ul>
+                    <li>Artes visuais</li>
+                    <li>Música</li>
+                    <li>Teatro</li>
+                    <li>Dança</li>
+                    <li>História da arte</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🏃 Educação Física</h3>
+                <p>Desenvolvimento corporal, esportivo e qualidade de vida.</p>
+                <ul>
+                    <li>Esportes</li>
+                    <li>Jogos</li>
+                    <li>Saúde</li>
+                    <li>Atividades físicas</li>
+                    <li>Qualidade de vida</li>
+                </ul>
+            </section>
+
+            <!-- MATÉRIAS TÉCNICAS -->
+
+            <section class="materia" id="tecnicas">
+                <h3>🎯 Projeto de Vida</h3>
+                <p>
+                    Desenvolvimento pessoal e preparação para escolhas acadêmicas
+                    e profissionais.
+                </p>
+                <ul>
+                    <li>Objetivos pessoais</li>
+                    <li>Planejamento</li>
+                    <li>Carreira profissional</li>
+                    <li>Responsabilidade</li>
+                    <li>Futuro profissional</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>💻 S.O. — Sistemas Operacionais</h3>
+                <p>
+                    Estudo dos sistemas responsáveis pelo funcionamento e
+                    gerenciamento dos computadores.
+                </p>
+                <ul>
+                    <li>Windows e Linux</li>
+                    <li>Arquivos e pastas</li>
+                    <li>Processos</li>
+                    <li>Memória</li>
+                    <li>Gerenciamento do sistema</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>☕ POO Java</h3>
+                <p>
+                    Programação Orientada a Objetos utilizando a linguagem Java.
+                </p>
+                <ul>
+                    <li>Classes e objetos</li>
+                    <li>Atributos</li>
+                    <li>Métodos</li>
+                    <li>Encapsulamento</li>
+                    <li>Herança</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🖥️ AMC</h3>
+                <p>
+                    Arquitetura e Manutenção de Computadores.
+                </p>
+                <ul>
+                    <li>Componentes do computador</li>
+                    <li>Placa-mãe</li>
+                    <li>Processador</li>
+                    <li>Memória RAM</li>
+                    <li>Manutenção de computadores</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🤖 N.R. — Noções de Robótica</h3>
+                <p>
+                    Introdução à robótica, sensores e sistemas automatizados.
+                </p>
+                <ul>
+                    <li>Sensores</li>
+                    <li>Atuadores</li>
+                    <li>Automação</li>
+                    <li>Programação</li>
+                    <li>Robôs</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>🌐 P.W. — Programação Web</h3>
+                <p>
+                    Desenvolvimento de páginas e aplicações para a internet.
+                </p>
+                <ul>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JavaScript</li>
+                    <li>Estrutura de páginas</li>
+                    <li>Desenvolvimento Web</li>
+                </ul>
+            </section>
+
+            <section class="materia">
+                <h3>💰 Educação Financeira</h3>
+                <p>
+                    Desenvolvimento de conhecimentos para organizar e administrar
+                    melhor os recursos financeiros.
+                </p>
+                <ul>
+                    <li>Orçamento</li>
+                    <li>Economia</li>
+                    <li>Planejamento financeiro</li>
+                    <li>Consumo consciente</li>
+                    <li>Poupança</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <div class="destaque">
+            💡 <strong>Importante:</strong> As matérias e os conteúdos podem variar
+            de acordo com a escola e a organização curricular.
+        </div>
+
+    </main>
+
+    <footer>
+        <p>📚 Projeto Educacional - 2º Ano do Ensino Médio</p>
+        <p>Programação Web e Desenvolvimento de Conhecimentos</p>
+    </footer>
 
 </body>
-    <a href="aula.html"> <button class="btn"> AULA Z <button/> </a>
-        <a href="nariz.html"> <button class="btn"> evelyn <button/> </a>
-            <a href="direitos.html">D.H</a>
 </html>
+```
