@@ -4,31 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Estudos - 2º Ano</title>
+    <title>Portal de Estudos 2.0</title>
 
     <style>
         * {
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f2f6fa;
-            color: #333;
+            background: #f3f6fa;
+            color: #263238;
             transition: 0.3s;
         }
 
         header {
-            background: linear-gradient(135deg, #0066cc, #003366);
+            background: linear-gradient(135deg, #0066cc, #002b55);
             color: white;
             text-align: center;
             padding: 45px 20px;
         }
 
         header h1 {
+            font-size: 40px;
             margin: 0;
-            font-size: 38px;
         }
 
         header p {
@@ -36,12 +37,12 @@
         }
 
         nav {
-            background-color: #00264d;
+            background: #001f3f;
             padding: 15px;
             text-align: center;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
         }
 
         nav a {
@@ -55,76 +56,124 @@
             color: #66ccff;
         }
 
-        .controles {
-            max-width: 1100px;
-            margin: 25px auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
+        main {
+            max-width: 1150px;
+            margin: auto;
+            padding: 25px;
         }
 
-        #pesquisa {
-            padding: 13px;
-            width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 16px;
+        section {
+            scroll-margin-top: 80px;
         }
 
-        button {
-            border: none;
-            padding: 12px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #0066cc;
-            color: white;
+        .painel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin: 5px 0;
+            color: #0066cc;
+        }
+
+        .numero {
+            font-size: 30px;
             font-weight: bold;
         }
 
-        button:hover {
-            background-color: #004c99;
-        }
-
-        main {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .introducao,
-        .progresso,
-        .anotacoes,
-        .quiz {
-            background-color: white;
+        .caixa {
+            background: white;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             margin-bottom: 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
         }
 
         h2 {
             color: #0066cc;
         }
 
+        .controles {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 12px;
+            border: 1px solid #ccd4dc;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: Arial, sans-serif;
+        }
+
+        #pesquisa {
+            flex: 1;
+            min-width: 230px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 160px;
+            resize: vertical;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 15px;
+            cursor: pointer;
+            background: #0066cc;
+            color: white;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #004d99;
+        }
+
+        .btn-verde {
+            background: #198754;
+        }
+
+        .btn-vermelho {
+            background: #b02a37;
+        }
+
+        .btn-cinza {
+            background: #607d8b;
+        }
+
         .materias {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
         .materia {
-            background-color: white;
-            padding: 22px;
+            background: white;
+            padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
             border-top: 5px solid #0066cc;
             transition: 0.2s;
         }
 
         .materia:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
 
         .materia h3 {
@@ -133,86 +182,102 @@
         }
 
         .materia p {
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .conteudo {
             display: none;
             margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
+            padding: 15px;
+            background: #f5f8fb;
+            border-radius: 8px;
         }
 
-        .conteudo ul {
-            line-height: 1.8;
+        .conteudo li {
+            margin: 8px 0;
         }
 
-        .estudada {
-            background-color: #e5ffe9;
-            border-top-color: #21a644;
+        .conteudo input {
+            margin-right: 7px;
         }
 
-        .barra {
+        .materia.concluida {
+            border-top-color: #198754;
+        }
+
+        .barra-fundo {
             width: 100%;
             height: 25px;
-            background-color: #ddd;
+            background: #dce2e8;
             border-radius: 20px;
             overflow: hidden;
         }
 
-        #barraProgresso {
+        .barra {
             width: 0%;
             height: 100%;
-            background-color: #21a644;
+            background: #198754;
             transition: 0.5s;
         }
 
-        #textoProgresso {
-            font-weight: bold;
-            margin-bottom: 10px;
+        .pomodoro {
+            text-align: center;
         }
 
-        textarea {
-            width: 100%;
-            height: 150px;
-            resize: vertical;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-family: Arial;
-            font-size: 15px;
+        #tempo {
+            font-size: 60px;
+            font-weight: bold;
+            margin: 20px;
+            color: #0066cc;
+        }
+
+        .status {
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .tarefas {
+            display: grid;
+            gap: 10px;
         }
 
         .tarefa {
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f1f5f9;
+            background: #f1f4f7;
+            padding: 12px;
             border-radius: 8px;
         }
 
-        .tarefa input {
-            margin-right: 10px;
+        .tarefa.concluida {
+            text-decoration: line-through;
+            opacity: 0.6;
         }
 
-        .quiz button {
-            margin-top: 10px;
+        .quiz-pergunta {
+            padding: 15px;
+            background: #f5f8fb;
+            border-radius: 10px;
+            margin-bottom: 15px;
         }
 
-        #resultadoQuiz {
+        .quiz-pergunta label {
+            display: block;
+            margin: 8px 0;
+        }
+
+        #resultado {
+            font-size: 18px;
             font-weight: bold;
-            margin-top: 15px;
         }
 
-        .destaque {
-            background-color: #e6f4ff;
+        .dica {
             border-left: 5px solid #0066cc;
+            background: #e5f3ff;
             padding: 18px;
-            margin-top: 30px;
             border-radius: 8px;
         }
 
         footer {
-            background-color: #00264d;
+            background: #001f3f;
             color: white;
             text-align: center;
             padding: 25px;
@@ -222,41 +287,39 @@
         /* MODO ESCURO */
 
         body.escuro {
-            background-color: #121820;
+            background: #111820;
             color: #eeeeee;
         }
 
-        body.escuro .introducao,
-        body.escuro .progresso,
-        body.escuro .anotacoes,
-        body.escuro .quiz,
+        body.escuro .card,
+        body.escuro .caixa,
         body.escuro .materia {
-            background-color: #1e2936;
+            background: #1d2935;
             color: #eeeeee;
         }
 
-        body.escuro .materia h3,
-        body.escuro h2 {
+        body.escuro h2,
+        body.escuro .card h3,
+        body.escuro .materia h3 {
             color: #66c7ff;
         }
 
-        body.escuro .conteudo {
-            border-color: #45515e;
-        }
-
+        body.escuro .conteudo,
+        body.escuro .quiz-pergunta,
         body.escuro .tarefa {
-            background-color: #273442;
+            background: #263543;
         }
 
-        body.escuro #pesquisa,
-        body.escuro textarea {
-            background-color: #273442;
+        body.escuro input,
+        body.escuro textarea,
+        body.escuro select {
+            background: #263543;
             color: white;
-            border-color: #536273;
+            border-color: #526477;
         }
 
-        body.escuro .destaque {
-            background-color: #17344d;
+        body.escuro .dica {
+            background: #17344d;
         }
 
         @media (max-width: 600px) {
@@ -266,11 +329,11 @@
 
             nav a {
                 display: block;
-                margin: 8px;
+                margin: 9px;
             }
 
-            #pesquisa {
-                width: 100%;
+            #tempo {
+                font-size: 45px;
             }
         }
     </style>
@@ -279,538 +342,559 @@
 <body>
 
 <header id="inicio">
-    <h1>📚 2º Ano do Ensino Médio</h1>
-    <p>Portal de Estudos Interativo</p>
+    <h1>📚 Portal de Estudos 2.0</h1>
+    <p>Meu espaço de estudos do 2º Ano do Ensino Médio</p>
 </header>
 
 <nav>
-    <a href="#inicio">Início</a>
-    <a href="#materias">Matérias</a>
-    <a href="#anotacoes">Anotações</a>
-    <a href="#quiz">Quiz</a>
+    <a href="#inicio">🏠 Início</a>
+    <a href="#materias">📚 Matérias</a>
+    <a href="#planejamento">📅 Planejamento</a>
+    <a href="#anotacoes">📝 Anotações</a>
+    <a href="#pomodoro">⏱️ Foco</a>
+    <a href="#quiz">🎯 Quiz</a>
 </nav>
-
-<div class="controles">
-    <input
-        type="text"
-        id="pesquisa"
-        placeholder="🔎 Pesquisar matéria..."
-        onkeyup="pesquisarMateria()"
-    >
-
-    <button onclick="alternarTema()">
-        🌙 Modo Escuro
-    </button>
-
-    <button onclick="marcarTodas()">
-        ✅ Marcar Todas
-    </button>
-
-    <button onclick="desmarcarTodas()">
-        🔄 Limpar Progresso
-    </button>
-</div>
 
 <main>
 
-    <section class="introducao">
-        <h2>📖 Bem-vindo!</h2>
+    <!-- PAINEL -->
 
-        <p>
-            Este é um portal de estudos criado para reunir as matérias
-            do 2º ano do Ensino Médio em um único lugar.
-        </p>
+    <div class="painel">
 
-        <p>
-            Clique em uma matéria para visualizar os principais conteúdos.
-            Você também pode pesquisar matérias, marcar seus estudos,
-            fazer anotações e testar seus conhecimentos no quiz.
-        </p>
+        <div class="card">
+            <div class="numero" id="totalMaterias">19</div>
+            <h3>📚 Matérias</h3>
+        </div>
+
+        <div class="card">
+            <div class="numero" id="materiasEstudadas">0</div>
+            <h3>✅ Estudadas</h3>
+        </div>
+
+        <div class="card">
+            <div class="numero" id="porcentagem">0%</div>
+            <h3>📊 Progresso</h3>
+        </div>
+
+        <div class="card">
+            <div class="numero" id="diasEstudo">0</div>
+            <h3>🔥 Dias de estudo</h3>
+        </div>
+
+    </div>
+
+    <!-- PESQUISA -->
+
+    <section class="caixa">
+        <h2>🔎 Procurar uma matéria</h2>
+
+        <div class="controles">
+            <input
+                type="text"
+                id="pesquisa"
+                placeholder="Digite o nome da matéria..."
+                onkeyup="pesquisar()"
+            >
+
+            <button onclick="modoEscuro()">
+                🌙 Modo Escuro
+            </button>
+        </div>
     </section>
 
-    <section class="progresso">
+    <!-- PROGRESSO -->
+
+    <section class="caixa">
         <h2>📊 Meu Progresso</h2>
 
         <p id="textoProgresso">
             Você estudou 0 de 19 matérias.
         </p>
 
-        <div class="barra">
-            <div id="barraProgresso"></div>
+        <div class="barra-fundo">
+            <div class="barra" id="barraProgresso"></div>
         </div>
     </section>
 
-    <h2 id="materias">📚 Minhas Matérias</h2>
+    <!-- MATÉRIAS -->
 
-    <div class="materias">
+    <section id="materias">
+        <h2>📚 Minhas Matérias</h2>
 
-        <section class="materia">
-            <h3>📘 Língua Portuguesa</h3>
-            <p>Estudo da língua, literatura e produção de textos.</p>
+        <div class="materias">
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+            <div class="materia">
+                <h3>📘 Língua Portuguesa</h3>
+                <p>Estudo da língua, literatura e produção de textos.</p>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Gramática</li>
-                    <li>Literatura</li>
-                    <li>Interpretação de texto</li>
-                    <li>Produção textual</li>
-                    <li>Gêneros textuais</li>
-                </ul>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
+
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Gramática</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Literatura</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Interpretação de texto</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Produção textual</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Gêneros textuais</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>📐 Matemática</h3>
-            <p>Desenvolvimento do raciocínio lógico e matemático.</p>
+            <div class="materia">
+                <h3>📐 Matemática</h3>
+                <p>Desenvolvimento do raciocínio lógico e matemático.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Funções</li>
-                    <li>Progressões</li>
-                    <li>Geometria</li>
-                    <li>Probabilidade</li>
-                    <li>Estatística</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Funções</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Progressões</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Geometria</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Probabilidade</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Estatística</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🇬🇧 Língua Inglesa</h3>
-            <p>Desenvolvimento da comunicação em inglês.</p>
+            <div class="materia">
+                <h3>🇬🇧 Língua Inglesa</h3>
+                <p>Desenvolvimento da comunicação e compreensão do inglês.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Vocabulário</li>
-                    <li>Gramática</li>
-                    <li>Interpretação de textos</li>
-                    <li>Conversação</li>
-                    <li>Produção escrita</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Vocabulário</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Gramática</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Interpretação</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Conversação</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Produção escrita</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🌎 Geografia</h3>
-            <p>Estudo do espaço geográfico e da sociedade.</p>
+            <div class="materia">
+                <h3>🌎 Geografia</h3>
+                <p>Estudo do espaço geográfico e da sociedade.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Globalização</li>
-                    <li>Economia</li>
-                    <li>Industrialização</li>
-                    <li>População</li>
-                    <li>Meio ambiente</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Globalização</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Economia</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Industrialização</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> População</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Meio ambiente</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🏛️ História</h3>
-            <p>Estudo dos acontecimentos e transformações históricas.</p>
+            <div class="materia">
+                <h3>🏛️ História</h3>
+                <p>Estudo dos acontecimentos e transformações históricas.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Brasil Império</li>
-                    <li>Brasil República</li>
-                    <li>Revoluções</li>
-                    <li>Imperialismo</li>
-                    <li>Guerras e conflitos</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Brasil Império</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Brasil República</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Revoluções</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Imperialismo</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Guerras e conflitos</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>⚛️ Física</h3>
-            <p>Estudo dos fenômenos físicos e das leis da natureza.</p>
+            <div class="materia">
+                <h3>⚛️ Física</h3>
+                <p>Estudo dos fenômenos físicos e suas leis.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Termologia</li>
-                    <li>Calor e temperatura</li>
-                    <li>Óptica</li>
-                    <li>Ondas</li>
-                    <li>Eletricidade</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Termologia</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Calor e temperatura</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Óptica</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Ondas</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Eletricidade</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🧪 Química</h3>
-            <p>Estudo da matéria e suas transformações.</p>
+            <div class="materia">
+                <h3>🧪 Química</h3>
+                <p>Estudo da matéria e suas transformações.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Reações químicas</li>
-                    <li>Soluções</li>
-                    <li>Química orgânica</li>
-                    <li>Ácidos e bases</li>
-                    <li>Estequiometria</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Reações químicas</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Soluções</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Química orgânica</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Ácidos e bases</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Estequiometria</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🧬 Biologia</h3>
-            <p>Estudo dos seres vivos e dos processos biológicos.</p>
+            <div class="materia">
+                <h3>🧬 Biologia</h3>
+                <p>Estudo dos seres vivos e processos biológicos.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Genética</li>
-                    <li>Evolução</li>
-                    <li>Ecologia</li>
-                    <li>Citologia</li>
-                    <li>Fisiologia</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Genética</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Evolução</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Ecologia</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Citologia</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Fisiologia</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>💭 Filosofia</h3>
-            <p>Reflexão sobre conhecimento, ética e sociedade.</p>
+            <div class="materia">
+                <h3>💭 Filosofia</h3>
+                <p>Reflexão sobre ética, conhecimento e sociedade.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Ética</li>
-                    <li>Política</li>
-                    <li>Conhecimento</li>
-                    <li>Filosofia moderna</li>
-                    <li>Filosofia contemporânea</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Ética</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Política</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Conhecimento</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Filosofia moderna</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Filosofia contemporânea</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>👥 Sociologia</h3>
-            <p>Estudo da sociedade e das relações humanas.</p>
+            <div class="materia">
+                <h3>👥 Sociologia</h3>
+                <p>Estudo da sociedade e das relações humanas.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Cultura</li>
-                    <li>Desigualdade social</li>
-                    <li>Trabalho</li>
-                    <li>Política</li>
-                    <li>Movimentos sociais</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Cultura</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Desigualdade social</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Trabalho</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Política</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Movimentos sociais</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🎨 Artes</h3>
-            <p>Estudo da criatividade e das diferentes formas de arte.</p>
+            <div class="materia">
+                <h3>🎨 Artes</h3>
+                <p>Estudo da criatividade e das diferentes formas de arte.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Artes visuais</li>
-                    <li>Música</li>
-                    <li>Teatro</li>
-                    <li>Dança</li>
-                    <li>História da arte</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Artes visuais</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Música</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Teatro</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Dança</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> História da arte</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🏃 Educação Física</h3>
-            <p>Estudo dos esportes, saúde e atividades físicas.</p>
+            <div class="materia">
+                <h3>🏃 Educação Física</h3>
+                <p>Estudo dos esportes, saúde e atividades físicas.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Esportes</li>
-                    <li>Jogos</li>
-                    <li>Saúde</li>
-                    <li>Atividades físicas</li>
-                    <li>Qualidade de vida</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Esportes</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Jogos</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Saúde</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Atividades físicas</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Qualidade de vida</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🎯 Projeto de Vida</h3>
-            <p>Planejamento pessoal, acadêmico e profissional.</p>
+            <div class="materia">
+                <h3>🎯 Projeto de Vida</h3>
+                <p>Planejamento pessoal, acadêmico e profissional.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Objetivos pessoais</li>
-                    <li>Planejamento</li>
-                    <li>Carreira profissional</li>
-                    <li>Responsabilidade</li>
-                    <li>Futuro profissional</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Objetivos pessoais</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Planejamento</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Carreira</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Responsabilidade</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Futuro profissional</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>💻 S.O. — Sistemas Operacionais</h3>
-            <p>Estudo dos sistemas que gerenciam os computadores.</p>
+            <div class="materia">
+                <h3>💻 S.O. — Sistemas Operacionais</h3>
+                <p>Estudo dos sistemas que gerenciam computadores.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Windows e Linux</li>
-                    <li>Arquivos e pastas</li>
-                    <li>Processos</li>
-                    <li>Memória</li>
-                    <li>Gerenciamento do sistema</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Windows e Linux</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Arquivos e pastas</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Processos</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Memória</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Gerenciamento do sistema</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>☕ POO Java</h3>
-            <p>Programação Orientada a Objetos utilizando Java.</p>
+            <div class="materia">
+                <h3>☕ POO Java</h3>
+                <p>Programação Orientada a Objetos utilizando Java.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Classes e objetos</li>
-                    <li>Atributos</li>
-                    <li>Métodos</li>
-                    <li>Encapsulamento</li>
-                    <li>Herança</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Classes e objetos</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Atributos</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Métodos</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Encapsulamento</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Herança</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🖥️ AMC</h3>
-            <p>Arquitetura e Manutenção de Computadores.</p>
+            <div class="materia">
+                <h3>🖥️ AMC</h3>
+                <p>Arquitetura e Manutenção de Computadores.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Componentes do computador</li>
-                    <li>Placa-mãe</li>
-                    <li>Processador</li>
-                    <li>Memória RAM</li>
-                    <li>Manutenção de computadores</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Componentes</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Placa-mãe</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Processador</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Memória RAM</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Manutenção</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🤖 N.R. — Noções de Robótica</h3>
-            <p>Introdução à robótica e aos sistemas automatizados.</p>
+            <div class="materia">
+                <h3>🤖 N.R. — Noções de Robótica</h3>
+                <p>Introdução à robótica e automação.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Sensores</li>
-                    <li>Atuadores</li>
-                    <li>Automação</li>
-                    <li>Programação</li>
-                    <li>Robôs</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Sensores</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Atuadores</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Automação</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Programação</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Robôs</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>🌐 P.W. — Programação Web</h3>
-            <p>Desenvolvimento de páginas e aplicações para a internet.</p>
+            <div class="materia">
+                <h3>🌐 P.W. — Programação Web</h3>
+                <p>Desenvolvimento de páginas para a internet.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                    <li>Estrutura de páginas</li>
-                    <li>Desenvolvimento Web</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> HTML</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> CSS</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> JavaScript</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Estrutura de páginas</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Desenvolvimento Web</label>
+                </div>
             </div>
-        </section>
 
-        <section class="materia">
-            <h3>💰 Educação Financeira</h3>
-            <p>Aprendizado sobre organização e planejamento financeiro.</p>
+            <div class="materia">
+                <h3>💰 Educação Financeira</h3>
+                <p>Organização e planejamento financeiro.</p>
 
-            <button onclick="abrirConteudo(this)">Ver conteúdos</button>
-            <button onclick="marcarEstudada(this)">Marcar como estudada</button>
+                <button onclick="mostrar(this)">Ver conteúdos</button>
+                <button class="btn-verde" onclick="estudar(this)">Estudar</button>
 
-            <div class="conteudo">
-                <ul>
-                    <li>Orçamento</li>
-                    <li>Economia</li>
-                    <li>Planejamento financeiro</li>
-                    <li>Consumo consciente</li>
-                    <li>Poupança</li>
-                </ul>
+                <div class="conteudo">
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Orçamento</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Economia</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Planejamento financeiro</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Consumo consciente</label>
+                    <label><input type="checkbox" onchange="salvarProgresso()"> Poupança</label>
+                </div>
             </div>
-        </section>
 
-    </div>
+        </div>
+    </section>
 
-    <section class="anotacoes" id="anotacoes">
+    <!-- PLANEJAMENTO -->
+
+    <section class="caixa" id="planejamento">
+        <h2>📅 Planejamento de Estudos</h2>
+
+        <div class="controles">
+            <input type="text" id="novaTarefa"
+                   placeholder="Ex: Estudar Física">
+            <select id="diaTarefa">
+                <option>Segunda-feira</option>
+                <option>Terça-feira</option>
+                <option>Quarta-feira</option>
+                <option>Quinta-feira</option>
+                <option>Sexta-feira</option>
+                <option>Sábado</option>
+                <option>Domingo</option>
+            </select>
+
+            <button onclick="adicionarTarefa()">
+                ➕ Adicionar
+            </button>
+        </div>
+
+        <div class="tarefas" id="listaTarefas"></div>
+    </section>
+
+    <!-- ANOTAÇÕES -->
+
+    <section class="caixa" id="anotacoes">
         <h2>📝 Minhas Anotações</h2>
 
-        <p>
-            Escreva aqui suas anotações, lembretes ou conteúdos importantes:
-        </p>
-
-        <textarea id="campoAnotacoes"
-            placeholder="Digite suas anotações aqui..."></textarea>
+        <textarea id="anotacoesTexto"
+                  placeholder="Digite aqui seus resumos, lembretes e anotações..."></textarea>
 
         <br><br>
 
-        <button onclick="salvarAnotacoes()">
-            💾 Salvar Anotações
+        <button class="btn-verde" onclick="salvarAnotacoes()">
+            💾 Salvar
         </button>
 
-        <button onclick="apagarAnotacoes()">
+        <button class="btn-vermelho" onclick="apagarAnotacoes()">
             🗑️ Apagar
         </button>
 
         <p id="mensagemAnotacao"></p>
     </section>
 
-    <section class="quiz" id="quiz">
-        <h2>🎯 Quiz de Conhecimentos</h2>
+    <!-- POMODORO -->
 
-        <p>
-            <strong>1. Qual linguagem é usada para estruturar uma página Web?</strong>
+    <section class="caixa pomodoro" id="pomodoro">
+        <h2>⏱️ Modo Foco — Pomodoro</h2>
+
+        <p class="status" id="statusPomodoro">
+            Hora de estudar!
         </p>
 
-        <label>
-            <input type="radio" name="pergunta1" value="html">
-            HTML
-        </label>
+        <div id="tempo">25:00</div>
 
-        <br>
-
-        <label>
-            <input type="radio" name="pergunta1" value="java">
-            Java
-        </label>
-
-        <br>
-
-        <label>
-            <input type="radio" name="pergunta1" value="python">
-            Python
-        </label>
-
-        <p>
-            <strong>2. Qual matéria estuda os seres vivos?</strong>
-        </p>
-
-        <label>
-            <input type="radio" name="pergunta2" value="fisica">
-            Física
-        </label>
-
-        <br>
-
-        <label>
-            <input type="radio" name="pergunta2" value="biologia">
-            Biologia
-        </label>
-
-        <br>
-
-        <label>
-            <input type="radio" name="pergunta2" value="historia">
-            História
-        </label>
-
-        <p>
-            <strong>3. O que significa POO?</strong>
-        </p>
-
-        <label>
-            <input type="radio" name="pergunta3" value="a">
-            Programação Orientada a Objetos
-        </label>
-
-        <br>
-
-        <label>
-            <input type="radio" name="pergunta3" value="b">
-            Programa Operacional Online
-        </label>
-
-        <br>
-
-        <label>
-            <input type="radio" name="pergunta3" value="c">
-            Projeto de Organização
-        </label>
-
-        <br><br>
-
-        <button onclick="corrigirQuiz()">
-            ✅ Ver Resultado
+        <button onclick="iniciarPomodoro()">
+            ▶️ Iniciar
         </button>
 
-        <p id="resultadoQuiz"></p>
+        <button onclick="pausarPomodoro()" class="btn-cinza">
+            ⏸️ Pausar
+        </button>
+
+        <button onclick="reiniciarPomodoro()" class="btn-vermelho">
+            🔄 Reiniciar
+        </button>
+
+        <p>
+            Sugestão: faça 25 minutos de foco e depois uma pausa curta.
+        </p>
     </section>
 
-    <div class="destaque">
-        💡 <strong>Dica:</strong> Estude um pouco todos os dias,
-        organize suas anotações e acompanhe seu progresso.
+    <!-- QUIZ -->
+
+    <section class="caixa" id="quiz">
+        <h2>🎯 Quiz de Conhecimentos</h2>
+
+        <div class="quiz-pergunta">
+            <strong>1. Qual linguagem é usada para estruturar páginas Web?</strong>
+
+            <label>
+                <input type="radio" name="q1" value="html">
+                HTML
+            </label>
+
+            <label>
+                <input type="radio" name="q1" value="java">
+                Java
+            </label>
+
+            <label>
+                <input type="radio" name="q1" value="css">
+                CSS
+            </label>
+        </div>
+
+        <div class="quiz-pergunta">
+            <strong>2. Qual matéria estuda os seres vivos?</strong>
+
+            <label>
+                <input type="radio" name="q2" value="fisica">
+                Física
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="bio">
+                Biologia
+            </label>
+
+            <label>
+                <input type="radio" name="q2" value="historia">
+                História
+            </label>
+        </div>
+
+        <div class="quiz-pergunta">
+            <strong>3. O que significa POO?</strong>
+
+            <label>
+                <input type="radio" name="q3" value="correta">
+                Programação Orientada a Objetos
+            </label>
+
+            <label>
+                <input type="radio" name="q3" value="errada">
+                Programa Operacional Online
+            </label>
+
+            <label>
+                <input type="radio" name="q3" value="outra">
+                Projeto de Organização
+            </label>
+        </div>
+
+        <button onclick="corrigirQuiz()">
+            ✅ Corrigir Quiz
+        </button>
+
+        <p id="resultado"></p>
+    </section>
+
+    <div class="dica">
+        💡 <strong>Dica de estudo:</strong>
+        organize seu horário, estude uma matéria por vez,
+        faça pequenas pausas e acompanhe seu progresso.
     </div>
 
 </main>
 
 <footer>
-    <p>📚 Portal de Estudos - 2º Ano do Ensino Médio</p>
-    <p>Projeto de Programação Web</p>
+    <p>📚 Portal de Estudos 2.0</p>
+    <p>Projeto de Programação Web — 2º Ano do Ensino Médio</p>
 </footer>
 
 <script>
 
-    // ABRIR E FECHAR CONTEÚDOS
+    /* ABRIR CONTEÚDO */
 
-    function abrirConteudo(botao) {
+    function mostrar(botao) {
 
-        let conteudo = botao.parentElement.querySelector(".conteudo");
+        let conteudo =
+            botao.parentElement.querySelector(".conteudo");
 
         if (conteudo.style.display === "block") {
             conteudo.style.display = "none";
@@ -822,99 +906,74 @@
     }
 
 
-    // MARCAR MATÉRIA COMO ESTUDADA
+    /* MARCAR MATÉRIA COMO ESTUDADA */
 
-    function marcarEstudada(botao) {
+    function estudar(botao) {
 
         let materia = botao.parentElement;
 
-        materia.classList.toggle("estudada");
+        materia.classList.toggle("concluida");
 
-        if (materia.classList.contains("estudada")) {
-            botao.textContent = "↩️ Desmarcar estudo";
+        if (materia.classList.contains("concluida")) {
+            botao.textContent = "↩️ Desmarcar";
         } else {
-            botao.textContent = "Marcar como estudada";
+            botao.textContent = "Estudar";
         }
 
         atualizarProgresso();
+
+        registrarDia();
     }
 
 
-    // ATUALIZAR PROGRESSO
+    /* PROGRESSO */
 
     function atualizarProgresso() {
 
-        let materias = document.querySelectorAll(".materia");
-        let estudadas = document.querySelectorAll(".materia.estudada");
+        let materias =
+            document.querySelectorAll(".materia");
+
+        let estudadas =
+            document.querySelectorAll(".materia.concluida");
 
         let total = materias.length;
         let quantidade = estudadas.length;
 
-        let porcentagem = (quantidade / total) * 100;
+        let porcentagem =
+            Math.round((quantidade / total) * 100);
 
-        document.getElementById("barraProgresso").style.width =
-            porcentagem + "%";
+        document.getElementById("materiasEstudadas")
+            .textContent = quantidade;
 
-        document.getElementById("textoProgresso").textContent =
-            "Você estudou " + quantidade + " de " + total +
-            " matérias (" + Math.round(porcentagem) + "%).";
+        document.getElementById("porcentagem")
+            .textContent = porcentagem + "%";
+
+        document.getElementById("textoProgresso")
+            .textContent =
+            "Você estudou " + quantidade +
+            " de " + total +
+            " matérias (" + porcentagem + "%).";
+
+        document.getElementById("barraProgresso")
+            .style.width = porcentagem + "%";
     }
 
 
-    // MARCAR TODAS
+    /* PESQUISA */
 
-    function marcarTodas() {
+    function pesquisar() {
 
-        let materias = document.querySelectorAll(".materia");
-
-        materias.forEach(function(materia) {
-
-            materia.classList.add("estudada");
-
-            let botoes = materia.querySelectorAll("button");
-
-            if (botoes.length > 1) {
-                botoes[1].textContent = "↩️ Desmarcar estudo";
-            }
-        });
-
-        atualizarProgresso();
-    }
-
-
-    // DESMARCAR TODAS
-
-    function desmarcarTodas() {
-
-        let materias = document.querySelectorAll(".materia");
-
-        materias.forEach(function(materia) {
-
-            materia.classList.remove("estudada");
-
-            let botoes = materia.querySelectorAll("button");
-
-            if (botoes.length > 1) {
-                botoes[1].textContent = "Marcar como estudada";
-            }
-        });
-
-        atualizarProgresso();
-    }
-
-
-    // PESQUISAR MATÉRIA
-
-    function pesquisarMateria() {
-
-        let texto = document.getElementById("pesquisa")
+        let texto =
+            document.getElementById("pesquisa")
             .value.toLowerCase();
 
-        let materias = document.querySelectorAll(".materia");
+        let materias =
+            document.querySelectorAll(".materia");
 
         materias.forEach(function(materia) {
 
-            let nome = materia.querySelector("h3")
+            let nome =
+                materia.querySelector("h3")
                 .textContent.toLowerCase();
 
             if (nome.includes(texto)) {
@@ -926,114 +985,390 @@
     }
 
 
-    // MODO ESCURO
+    /* MODO ESCURO */
 
-    function alternarTema() {
+    function modoEscuro() {
 
         document.body.classList.toggle("escuro");
 
-        let botao = document.querySelector(".controles button");
-
         if (document.body.classList.contains("escuro")) {
-            botao.textContent = "☀️ Modo Claro";
+            localStorage.setItem("tema", "escuro");
         } else {
-            botao.textContent = "🌙 Modo Escuro";
+            localStorage.setItem("tema", "claro");
         }
     }
 
 
-    // SALVAR ANOTAÇÕES
+    /* ANOTAÇÕES */
 
     function salvarAnotacoes() {
 
-        let texto = document.getElementById("campoAnotacoes").value;
+        let texto =
+            document.getElementById("anotacoesTexto").value;
 
         localStorage.setItem("anotacoes", texto);
 
-        document.getElementById("mensagemAnotacao").textContent =
-            "✅ Anotações salvas com sucesso!";
+        document.getElementById("mensagemAnotacao")
+            .textContent =
+            "✅ Anotações salvas!";
     }
 
-
-    // APAGAR ANOTAÇÕES
 
     function apagarAnotacoes() {
 
-        document.getElementById("campoAnotacoes").value = "";
+        if (confirm("Tem certeza que deseja apagar suas anotações?")) {
 
-        localStorage.removeItem("anotacoes");
+            document.getElementById("anotacoesTexto")
+                .value = "";
 
-        document.getElementById("mensagemAnotacao").textContent =
-            "🗑️ Anotações apagadas.";
+            localStorage.removeItem("anotacoes");
+
+            document.getElementById("mensagemAnotacao")
+                .textContent =
+                "🗑️ Anotações apagadas.";
+        }
     }
 
 
-    // CARREGAR ANOTAÇÕES AO ABRIR A PÁGINA
+    /* TAREFAS */
 
-    window.onload = function() {
+    function adicionarTarefa() {
 
-        let anotacoes = localStorage.getItem("anotacoes");
+        let texto =
+            document.getElementById("novaTarefa").value;
 
-        if (anotacoes) {
-            document.getElementById("campoAnotacoes").value =
-                anotacoes;
+        let dia =
+            document.getElementById("diaTarefa").value;
+
+        if (texto.trim() === "") {
+            alert("Digite uma tarefa primeiro!");
+            return;
         }
 
-        atualizarProgresso();
-    };
+        let tarefas =
+            JSON.parse(localStorage.getItem("tarefas")) || [];
+
+        tarefas.push({
+            texto: texto,
+            dia: dia,
+            concluida: false
+        });
+
+        localStorage.setItem(
+            "tarefas",
+            JSON.stringify(tarefas)
+        );
+
+        document.getElementById("novaTarefa").value = "";
+
+        mostrarTarefas();
+    }
 
 
-    // CORRIGIR QUIZ
+    function mostrarTarefas() {
+
+        let tarefas =
+            JSON.parse(localStorage.getItem("tarefas")) || [];
+
+        let lista =
+            document.getElementById("listaTarefas");
+
+        lista.innerHTML = "";
+
+        tarefas.forEach(function(tarefa, indice) {
+
+            let div =
+                document.createElement("div");
+
+            div.className = "tarefa";
+
+            if (tarefa.concluida) {
+                div.classList.add("concluida");
+            }
+
+            div.innerHTML =
+                "<input type='checkbox' " +
+                (tarefa.concluida ? "checked" : "") +
+                " onchange='concluirTarefa(" + indice + ")'>" +
+                "<strong>" + tarefa.dia + "</strong> - " +
+                tarefa.texto +
+                " <button class='btn-vermelho' " +
+                "onclick='removerTarefa(" + indice + ")'>" +
+                "🗑️</button>";
+
+            lista.appendChild(div);
+        });
+    }
+
+
+    function concluirTarefa(indice) {
+
+        let tarefas =
+            JSON.parse(localStorage.getItem("tarefas")) || [];
+
+        tarefas[indice].concluida =
+            !tarefas[indice].concluida;
+
+        localStorage.setItem(
+            "tarefas",
+            JSON.stringify(tarefas)
+        );
+
+        mostrarTarefas();
+    }
+
+
+    function removerTarefa(indice) {
+
+        let tarefas =
+            JSON.parse(localStorage.getItem("tarefas")) || [];
+
+        tarefas.splice(indice, 1);
+
+        localStorage.setItem(
+            "tarefas",
+            JSON.stringify(tarefas)
+        );
+
+        mostrarTarefas();
+    }
+
+
+    /* POMODORO */
+
+    let segundos = 25 * 60;
+    let intervalo = null;
+
+    function atualizarTempo() {
+
+        let minutos =
+            Math.floor(segundos / 60);
+
+        let seg =
+            segundos % 60;
+
+        document.getElementById("tempo")
+            .textContent =
+            String(minutos).padStart(2, "0") +
+            ":" +
+            String(seg).padStart(2, "0");
+    }
+
+
+    function iniciarPomodoro() {
+
+        if (intervalo !== null) {
+            return;
+        }
+
+        document.getElementById("statusPomodoro")
+            .textContent =
+            "📚 Foco total! Continue estudando.";
+
+        intervalo =
+            setInterval(function() {
+
+                segundos--;
+
+                atualizarTempo();
+
+                if (segundos <= 0) {
+
+                    clearInterval(intervalo);
+                    intervalo = null;
+
+                    alert("⏰ Tempo terminado! Faça uma pausa.");
+
+                    document.getElementById("statusPomodoro")
+                        .textContent =
+                        "☕ Hora de fazer uma pausa!";
+                }
+
+            }, 1000);
+    }
+
+
+    function pausarPomodoro() {
+
+        clearInterval(intervalo);
+        intervalo = null;
+
+        document.getElementById("statusPomodoro")
+            .textContent =
+            "⏸️ Cronômetro pausado.";
+    }
+
+
+    function reiniciarPomodoro() {
+
+        clearInterval(intervalo);
+        intervalo = null;
+
+        segundos = 25 * 60;
+
+        atualizarTempo();
+
+        document.getElementById("statusPomodoro")
+            .textContent =
+            "Hora de estudar!";
+    }
+
+
+    /* QUIZ */
 
     function corrigirQuiz() {
 
         let pontos = 0;
 
-        let pergunta1 =
-            document.querySelector('input[name="pergunta1"]:checked');
+        let q1 =
+            document.querySelector('input[name="q1"]:checked');
 
-        let pergunta2 =
-            document.querySelector('input[name="pergunta2"]:checked');
+        let q2 =
+            document.querySelector('input[name="q2"]:checked');
 
-        let pergunta3 =
-            document.querySelector('input[name="pergunta3"]:checked');
+        let q3 =
+            document.querySelector('input[name="q3"]:checked');
 
 
-        if (pergunta1 && pergunta1.value === "html") {
+        if (q1 && q1.value === "html") {
             pontos++;
         }
 
-        if (pergunta2 && pergunta2.value === "biologia") {
+        if (q2 && q2.value === "bio") {
             pontos++;
         }
 
-        if (pergunta3 && pergunta3.value === "a") {
+        if (q3 && q3.value === "correta") {
             pontos++;
         }
 
 
         let resultado =
-            document.getElementById("resultadoQuiz");
+            document.getElementById("resultado");
 
 
         if (pontos === 3) {
             resultado.textContent =
-                "🎉 Parabéns! Você acertou 3 de 3 questões!";
+                "🎉 Excelente! Você acertou 3 de 3!";
         } else if (pontos === 2) {
             resultado.textContent =
-                "👏 Muito bem! Você acertou 2 de 3 questões!";
+                "👏 Muito bem! Você acertou 2 de 3!";
         } else if (pontos === 1) {
             resultado.textContent =
                 "📚 Você acertou 1 de 3. Continue estudando!";
         } else {
             resultado.textContent =
-                "💪 Você não acertou nenhuma. Não desista, tente novamente!";
+                "💪 Você não acertou nenhuma. Tente novamente!";
         }
     }
+
+
+    /* CONTADOR DE DIAS */
+
+    function registrarDia() {
+
+        let hoje =
+            new Date().toLocaleDateString();
+
+        let dias =
+            JSON.parse(localStorage.getItem("dias")) || [];
+
+        if (!dias.includes(hoje)) {
+
+            dias.push(hoje);
+
+            localStorage.setItem(
+                "dias",
+                JSON.stringify(dias)
+            );
+        }
+
+        document.getElementById("diasEstudo")
+            .textContent = dias.length;
+    }
+
+
+    /* SALVAR CHECKBOXES */
+
+    function salvarProgresso() {
+
+        let caixas =
+            document.querySelectorAll(
+                ".conteudo input[type='checkbox']"
+            );
+
+        let estado = [];
+
+        caixas.forEach(function(caixa) {
+            estado.push(caixa.checked);
+        });
+
+        localStorage.setItem(
+            "checkboxes",
+            JSON.stringify(estado)
+        );
+    }
+
+
+    function carregarCheckboxes() {
+
+        let estado =
+            JSON.parse(localStorage.getItem("checkboxes"));
+
+        if (!estado) {
+            return;
+        }
+
+        let caixas =
+            document.querySelectorAll(
+                ".conteudo input[type='checkbox']"
+            );
+
+        caixas.forEach(function(caixa, indice) {
+
+            if (estado[indice] !== undefined) {
+                caixa.checked = estado[indice];
+            }
+        });
+    }
+
+
+    /* CARREGAR DADOS */
+
+    window.onload = function() {
+
+        let anotacoes =
+            localStorage.getItem("anotacoes");
+
+        if (anotacoes) {
+            document.getElementById("anotacoesTexto")
+                .value = anotacoes;
+        }
+
+
+        let tema =
+            localStorage.getItem("tema");
+
+        if (tema === "escuro") {
+            document.body.classList.add("escuro");
+        }
+
+
+        let dias =
+            JSON.parse(localStorage.getItem("dias")) || [];
+
+        document.getElementById("diasEstudo")
+            .textContent = dias.length;
+
+
+        carregarCheckboxes();
+        mostrarTarefas();
+        atualizarProgresso();
+        atualizarTempo();
+    };
 
 </script>
 
 </body>
 </html>
 ```
-
