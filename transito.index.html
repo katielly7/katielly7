@@ -1,0 +1,1201 @@
+Claro — abaixo está um **HTML completo, moderno e bem diferente do típico trabalho escolar**, pensado para publicar diretamente no GitHub Pages.
+
+Ele cria uma experiência interativa sobre o **Dia Nacional do Trânsito (25 de setembro)**, com animações, “cidade” em movimento, semáforo interativo, estatísticas, linha do tempo, quiz e modo noturno — tudo em **um único arquivo** **`index.html`**, sem bibliotecas externas.
+
+```
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Dia Nacional do Trânsito — uma experiência interativa sobre segurança, respeito e responsabilidade no trânsito.">
+  <meta name="theme-color" content="#07111f">
+
+  <title>25.09 — Dia Nacional do Trânsito</title>
+
+  <style>
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #050914;
+      --bg-2: #091222;
+      --card: rgba(255,255,255,.065);
+      --card-border: rgba(255,255,255,.11);
+
+      --white: #f5f7fb;
+      --muted: #9ba8bd;
+
+      --yellow: #ffd43b;
+      --yellow-2: #ffae00;
+
+      --red: #ff4357;
+      --green: #25e58a;
+      --blue: #49a7ff;
+
+      --shadow: 0 25px 80px rgba(0,0,0,.35);
+      --radius: 28px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                   BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      background:
+        radial-gradient(circle at 15% 15%, rgba(73,167,255,.12), transparent 30%),
+        radial-gradient(circle at 85% 25%, rgba(255,212,59,.08), transparent 30%),
+        var(--bg);
+
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    body.light {
+      --bg: #eef3f8;
+      --bg-2: #ffffff;
+      --white: #0c1424;
+      --muted: #536176;
+      --card: rgba(255,255,255,.72);
+      --card-border: rgba(10,30,60,.1);
+
+      background:
+        radial-gradient(circle at 10% 10%, rgba(73,167,255,.15), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(255,212,59,.18), transparent 30%),
+        #eef3f8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 18px 6%;
+
+      background: rgba(5,9,20,.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    body.light header {
+      background: rgba(255,255,255,.65);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -.5px;
+    }
+
+    .logo-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+
+      display: grid;
+      place-items: center;
+
+      color: #111;
+      background: var(--yellow);
+
+      box-shadow: 0 0 30px rgba(255,212,59,.25);
+    }
+
+    nav {
+      display: flex;
+      gap: 26px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: .9rem;
+      transition: .25s;
+    }
+
+    nav a:hover {
+      color: var(--white);
+    }
+
+    .theme-btn {
+      border: 1px solid var(--card-border);
+      background: var(--card);
+      color: var(--white);
+
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .theme-btn:hover {
+      transform: rotate(20deg) scale(1.08);
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      min-height: 100vh;
+      padding: 150px 7% 80px;
+
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 50px;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+
+      position: absolute;
+      width: 500px;
+      height: 500px;
+
+      background: rgba(73,167,255,.08);
+      filter: blur(90px);
+
+      border-radius: 50%;
+      left: -150px;
+      top: 20%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 8px 14px;
+      border: 1px solid rgba(255,212,59,.25);
+      border-radius: 100px;
+
+      color: var(--yellow);
+      background: rgba(255,212,59,.06);
+
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 9vw, 8.5rem);
+      line-height: .84;
+      letter-spacing: -7px;
+      margin: 25px 0;
+    }
+
+    .hero h1 span {
+      color: var(--yellow);
+      text-shadow: 0 0 40px rgba(255,212,59,.15);
+    }
+
+    .hero-description {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 35px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      padding: 15px 22px;
+      border-radius: 14px;
+
+      font-weight: 800;
+      cursor: pointer;
+
+      transition: .25s;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: #111;
+      box-shadow: 0 12px 35px rgba(255,212,59,.18);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--white);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    /* =========================================================
+       HOLOGRAPHIC CARD
+    ========================================================= */
+
+    .hero-visual {
+      min-height: 500px;
+      display: grid;
+      place-items: center;
+      perspective: 1000px;
+    }
+
+    .holo {
+      width: min(430px, 90vw);
+      aspect-ratio: 1;
+
+      position: relative;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(circle,
+          rgba(255,212,59,.22) 0%,
+          rgba(255,212,59,.03) 32%,
+          transparent 33%),
+
+        conic-gradient(
+          from 0deg,
+          transparent,
+          rgba(73,167,255,.35),
+          transparent,
+          rgba(255,212,59,.35),
+          transparent
+        );
+
+      border: 1px solid rgba(255,255,255,.15);
+
+      box-shadow:
+        0 0 80px rgba(73,167,255,.1),
+        inset 0 0 80px rgba(255,255,255,.03);
+
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .holo::before,
+    .holo::after {
+      content: "";
+      position: absolute;
+      inset: 14%;
+
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 50%;
+
+      animation: spin 16s linear infinite;
+    }
+
+    .holo::after {
+      inset: 25%;
+      animation-direction: reverse;
+      animation-duration: 11s;
+    }
+
+    .traffic-light {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%,-50%);
+
+      width: 100px;
+      padding: 14px;
+
+      background: #111927;
+      border: 1px solid rgba(255,255,255,.15);
+
+      border-radius: 24px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+
+    .light {
+      width: 68px;
+      height: 68px;
+
+      margin: auto;
+
+      border-radius: 50%;
+
+      background: #202938;
+
+      transition: .4s;
+    }
+
+    .light.red.active {
+      background: var(--red);
+      box-shadow: 0 0 35px var(--red);
+    }
+
+    .light.yellow.active {
+      background: var(--yellow);
+      box-shadow: 0 0 35px var(--yellow);
+    }
+
+    .light.green.active {
+      background: var(--green);
+      box-shadow: 0 0 35px var(--green);
+    }
+
+    .signal-text {
+      position: absolute;
+      bottom: -55px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      color: var(--muted);
+      font-size: .75rem;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+
+    section {
+      padding: 110px 7%;
+      position: relative;
+    }
+
+    .section-header {
+      max-width: 750px;
+      margin-bottom: 55px;
+    }
+
+    .section-number {
+      color: var(--yellow);
+      font-size: .75rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2.3rem, 5vw, 5rem);
+      line-height: .95;
+      letter-spacing: -3px;
+      margin-bottom: 20px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* =========================================================
+       STATS
+    ========================================================= */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      padding: 30px;
+      min-height: 180px;
+
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+
+      position: relative;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .stat:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,212,59,.25);
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+
+      width: 120px;
+      height: 120px;
+
+      right: -40px;
+      bottom: -50px;
+
+      border-radius: 50%;
+      background: rgba(255,212,59,.06);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 3rem;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       CITY SIMULATOR
+    ========================================================= */
+
+    .city {
+      height: 470px;
+      border-radius: 35px;
+
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          to bottom,
+          #081a35 0 52%,
+          #1d2735 52% 73%,
+          #121820 73%
+        );
+
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+    }
+
+    .sun {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+
+      right: 12%;
+      top: 12%;
+
+      background: var(--yellow);
+      box-shadow: 0 0 70px rgba(255,212,59,.4);
+    }
+
+    .building {
+      position: absolute;
+      bottom: 27%;
+      background: #111b2a;
+      border-top: 2px solid rgba(255,255,255,.06);
+    }
+
+    .building:nth-child(2) {
+      width: 130px;
+      height: 190px;
+      left: 5%;
+    }
+
+    .building:nth-child(3) {
+      width: 170px;
+      height: 240px;
+      left: 22%;
+    }
+
+    .building:nth-child(4) {
+      width: 110px;
+      height: 160px;
+      right: 19%;
+    }
+
+    .building:nth-child(5) {
+      width: 150px;
+      height: 210px;
+      right: 2%;
+    }
+
+    .windows {
+      width: 100%;
+      height: 100%;
+
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0 23px,
+          rgba(255,212,59,.28) 24px 30px
+        ),
+
+        repeating-linear-gradient(
+          to right,
+          transparent 0 25px,
+          rgba(255,212,59,.18) 26px 33px
+        );
+    }
+
+    .road {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+      height: 27%;
+
+      background: #171c24;
+      border-top: 3px solid #353c48;
+    }
+
+    .lane {
+      position: absolute;
+      width: 100%;
+      height: 6px;
+
+      top: 50%;
+
+      background:
+        repeating-linear-gradient(
+          to right,
+          #d7dbe0 0 60px,
+          transparent 60px 115px
+        );
+
+      animation: roadMove 1s linear infinite;
+    }
+
+    .car {
+      position: absolute;
+      z-index: 5;
+
+      width: 95px;
+      height: 42px;
+
+      border-radius: 18px 25px 10px 10px;
+
+      background: var(--yellow);
+
+      bottom: 7%;
+      left: -120px;
+
+      animation: drive 9s linear infinite;
+    }
+
+    .car::before {
+      content: "";
+
+      position: absolute;
+
+      width: 43px;
+      height: 25px;
+
+      left: 22px;
+      top: -17px;
+
+      background: #8fd3ff;
+      border-radius: 13px 18px 0 0;
+    }
+
+    .wheel {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+
+      background: #080b11;
+      border: 5px solid #303846;
+
+      border-radius: 50%;
+      bottom: -11px;
+    }
+
+    .wheel.one { left: 12px; }
+    .wheel.two { right: 12px; }
+
+    .bike {
+      position: absolute;
+      z-index: 6;
+
+      bottom: 12%;
+      left: -100px;
+
+      font-size: 50px;
+
+      animation: driveBike 13s linear infinite;
+    }
+
+    /* =========================================================
+       CARDS
+    ========================================================= */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+
+    .info-card {
+      padding: 32px;
+
+      min-height: 270px;
+
+      background: var(--card);
+      border: 1px solid var(--card-border);
+
+      border-radius: var(--radius);
+
+      transition: .35s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-8px) rotateX(2deg);
+      border-color: rgba(73,167,255,.3);
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 55px;
+      height: 55px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+
+      background: rgba(255,212,59,.1);
+      color: var(--yellow);
+
+      font-size: 1.5rem;
+
+      margin-bottom: 28px;
+    }
+
+    .info-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       TIMELINE
+    ========================================================= */
+
+    .timeline {
+      position: relative;
+      max-width: 900px;
+    }
+
+    .timeline::before {
+      content: "";
+
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+
+      width: 2px;
+
+      background: linear-gradient(
+        var(--yellow),
+        rgba(255,212,59,.05)
+      );
+    }
+
+    .timeline-item {
+      position: relative;
+
+      padding-left: 60px;
+      margin-bottom: 55px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+
+      left: 6px;
+      top: 4px;
+
+      width: 20px;
+      height: 20px;
+
+      background: var(--yellow);
+      border-radius: 50%;
+
+      box-shadow: 0 0 25px rgba(255,212,59,.5);
+    }
+
+    .timeline-item small {
+      color: var(--yellow);
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .timeline-item h3 {
+      font-size: 1.5rem;
+      margin: 8px 0;
+    }
+
+    .timeline-item p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    /* =========================================================
+       QUIZ
+    ========================================================= */
+
+    .quiz {
+      max-width: 850px;
+
+      padding: 40px;
+
+      border-radius: 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,212,59,.09),
+          rgba(73,167,255,.05)
+        );
+
+      border: 1px solid var(--card-border);
+    }
+
+    .quiz-progress {
+      height: 5px;
+      background: rgba(255,255,255,.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 35px;
+    }
+
+    .quiz-progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--yellow);
+      transition: .4s;
+    }
+
+    .question {
+      font-size: 1.6rem;
+      line-height: 1.3;
+      margin-bottom: 25px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer {
+      text-align: left;
+
+      border: 1px solid var(--card-border);
+      background: rgba(255,255,255,.035);
+
+      color: var(--white);
+
+      padding: 17px 20px;
+      border-radius: 14px;
+
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .answer:hover {
+      background: rgba(255,212,59,.08);
+      border-color: rgba(255,212,59,.3);
+      transform: translateX(5px);
+    }
+
+    .answer.correct {
+      background: rgba(37,229,138,.12);
+      border-color: var(--green);
+    }
+
+    .answer.wrong {
+      background: rgba(255,67,87,.12);
+      border-color: var(--red);
+    }
+
+    .quiz-result {
+      margin-top: 25px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       FINAL CTA
+    ========================================================= */
+
+    .final {
+      min-height: 70vh;
+
+      display: grid;
+      place-items: center;
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(255,212,59,.09),
+          transparent 50%
+        );
+    }
+
+    .final-content {
+      max-width: 900px;
+    }
+
+    .final h2 {
+      font-size: clamp(3rem, 8vw, 8rem);
+      line-height: .85;
+      letter-spacing: -6px;
+    }
+
+    .final h2 span {
+      color: var(--yellow);
+    }
+
+    .final p {
+      max-width: 650px;
+      margin: 30px auto;
+
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 35px 7%;
+
+      border-top: 1px solid var(--card-border);
+
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    /* =========================================================
+       ANIMATIONS
+    ========================================================= */
+
+    @keyframes float {
+      0%,100% {
+        transform: translateY(0) rotateX(0deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotateX(5deg) rotateY(8deg);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes roadMove {
+      to {
+        background-position: 115px 0;
+      }
+    }
+
+    @keyframes drive {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(100vw + 250px));
+      }
+    }
+
+    @keyframes driveBike {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(100vw + 250px));
+      }
+    }
+
+    /* =========================================================
+       REVEAL
+    ========================================================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 130px;
+      }
+
+      .hero h1 {
+        letter-spacing: -4px;
+      }
+
+      .hero-visual {
+        min-height: 400px;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      section {
+        padding: 80px 5%;
+      }
+
+      .hero {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .hero h1 {
+        font-size: 4.2rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .city {
+        height: 350px;
+      }
+
+      .quiz {
+        padding: 25px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <header>
+
+    <a href="#" class="logo">
+      <div class="logo-mark">25</div>
+      <span>TRÂNSITO</span>
+    </a>
+
+    <nav>
+      <a href="#significado">Significado</a>
+      <a href="#cidade">Experiência</a>
+      <a href="#linha-do-tempo">História</a>
+      <a href="#quiz">Quiz</a>
+    </nav>
+
+    <button class="theme-btn" id="themeBtn" aria-label="Alternar tema">
+      ☾
+    </button>
+
+  </header>
+
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
+
+  <main>
+
+    <section class="hero">
+
+      <div class="hero-content reveal">
+
+        <span class="eyebrow">
+          ● 25 de setembro
+        </span>
+
+        <h1>
+          DIA<br>
+          <span>NACIONAL</span><br>
+          DO TRÂNSITO
+        </h1>
+
+        <p class="hero-description">
+          Mais do que carros, ruas e sinais: o trânsito é um espaço
+          compartilhado onde cada escolha pode proteger uma vida.
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#significado" class="btn btn-primary">
+            Explorar experiência →
+          </a>
+
+          <a href="#quiz" class="btn btn-secondary">
+            Testar conhecimentos
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-visual reveal">
+
+        <div class="holo">
+
+          <div class="traffic-light">
+
+            <div class="light red active"></div>
+            <div class="light yellow"></div>
+            <div class="light green"></div>
+
+          </div>
+
+          <div class="signal-text">
+            RESPEITO • ATENÇÃO • VIDA
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SIGNIFICADO
+    ====================================================== -->
+
+    <section id="significado">
+
+      <div class="section-header reveal">
+
+        <div class="section-number">
+          01 / POR QUE EXISTE?
+        </div>
+
+        <h2>
+          Uma data para lembrar que ninguém está sozinho na rua.
+        </h2>
+
+        <p>
+          O Dia Nacional do Trânsito é uma oportunidade para refletir
+          sobre atitudes responsáveis e sobre a convivência entre
+          motoristas, motociclistas, ciclistas e pedestres.
+        </p>
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat reveal">
+          <strong>25</strong>
+          <span>de setembro é marcado no calendário brasileiro como o Dia Nacional do Trânsito.</span>
+        </div>
+
+        <div class="stat reveal">
+          <strong>1</strong>
+          <span>atitude responsável pode influenciar toda a dinâmica de uma via.</span>
+        </div>
+
+        <div class="stat reveal">
+          <strong>∞</strong>
+          <span>possibilidades de tornar a convivência no trânsito mais segura.</span>
+        </div>
+
+        <div class="stat reveal">
+          <strong>0</strong>
+          <span>desculpas justificam colocar outras pessoas em risco.</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CIDADE INTERATIVA
+    ====================================================== -->
+
+    <section id="cidade">
+
+      <div class="section-header reveal">
+
+        <div class="section-number">
+          02 / A CIDADE EM MOVIMENTO
+        </div>
+
+        <h2>
+          Observe. Pense
+```
