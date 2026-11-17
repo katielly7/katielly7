@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -336,12 +335,58 @@
                 font-size: 45px;
             }
         }
+
+        /* LOGOTIPO DA ESCOLA */
+
+        .logo-escola {
+            display: block;
+            width: min(360px, 90%);
+            max-height: 150px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 8px;
+            border-radius: 10px;
+        }
+
+        /* FOTO PESSOAL */
+
+        .perfil {
+            max-width: 650px;
+            margin: 0 auto 30px;
+            text-align: center;
+        }
+
+        .foto-perfil {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #0066cc;
+            display: block;
+            margin: 15px auto;
+            background: #e5edf5;
+        }
+
+        #arquivoFoto {
+            max-width: 100%;
+            background: white;
+        }
+
+        body.escuro #arquivoFoto {
+            background: #263543;
+            color: white;
+        }
+
     </style>
 </head>
 
 <body>
 
 <header id="inicio">
+    <img class="logo-escola" src="logo-ecm.png"
+         alt="Logo da Escola Estadual Emília Cabral Mota">
+
     <h1>📚 Portal de Estudos 2.0</h1>
     <p>Meu espaço de estudos do 2º Ano do Ensino Médio</p>
 </header>
@@ -356,6 +401,30 @@
 </nav>
 
 <main>
+
+    <!-- FOTO DO ALUNO -->
+
+    <section class="caixa perfil" id="meuPerfil">
+        <h2>📷 Minha foto</h2>
+
+        <p>Escolha uma foto do seu computador para aparecer no seu portal de estudos.</p>
+
+        <img id="fotoPerfil" class="foto-perfil"
+             alt="Prévia da minha foto"
+             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='75' fill='%23e5edf5'/%3E%3Ctext x='75' y='88' text-anchor='middle' font-size='52'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E">
+
+        <input type="file" id="arquivoFoto"
+               accept="image/*" onchange="carregarFoto(event)">
+
+        <br><br>
+
+        <button class="btn-vermelho" type="button"
+                onclick="removerFoto()">
+            🗑️ Remover foto
+        </button>
+
+        <p id="mensagemFoto"></p>
+    </section>
 
     <!-- PAINEL -->
 
@@ -389,12 +458,9 @@
         <h2>🔎 Procurar uma matéria</h2>
 
         <div class="controles">
-            <input
-                type="text"
-                id="pesquisa"
-                placeholder="Digite o nome da matéria..."
-                onkeyup="pesquisar()"
-            >
+            <input type="text" id="pesquisa"
+                   placeholder="Digite o nome da matéria..."
+                   onkeyup="pesquisar()">
 
             <button onclick="modoEscuro()">
                 🌙 Modo Escuro
@@ -415,8 +481,7 @@
             <div class="barra" id="barraProgresso"></div>
         </div>
     </section>
-
-    <!-- MATÉRIAS -->
+        <!-- MATÉRIAS -->
 
     <section id="materias">
         <h2>📚 Minhas Matérias</h2>
@@ -426,10 +491,8 @@
             <div class="materia">
                 <h3>📘 Língua Portuguesa</h3>
                 <p>Estudo da língua, literatura e produção de textos.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Gramática</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Literatura</label>
@@ -442,10 +505,8 @@
             <div class="materia">
                 <h3>📐 Matemática</h3>
                 <p>Desenvolvimento do raciocínio lógico e matemático.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Funções</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Progressões</label>
@@ -458,10 +519,8 @@
             <div class="materia">
                 <h3>🇬🇧 Língua Inglesa</h3>
                 <p>Desenvolvimento da comunicação e compreensão do inglês.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Vocabulário</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Gramática</label>
@@ -474,10 +533,8 @@
             <div class="materia">
                 <h3>🌎 Geografia</h3>
                 <p>Estudo do espaço geográfico e da sociedade.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Globalização</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Economia</label>
@@ -490,10 +547,8 @@
             <div class="materia">
                 <h3>🏛️ História</h3>
                 <p>Estudo dos acontecimentos e transformações históricas.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Brasil Império</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Brasil República</label>
@@ -506,10 +561,8 @@
             <div class="materia">
                 <h3>⚛️ Física</h3>
                 <p>Estudo dos fenômenos físicos e suas leis.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Termologia</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Calor e temperatura</label>
@@ -522,10 +575,8 @@
             <div class="materia">
                 <h3>🧪 Química</h3>
                 <p>Estudo da matéria e suas transformações.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Reações químicas</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Soluções</label>
@@ -538,10 +589,8 @@
             <div class="materia">
                 <h3>🧬 Biologia</h3>
                 <p>Estudo dos seres vivos e processos biológicos.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Genética</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Evolução</label>
@@ -554,10 +603,8 @@
             <div class="materia">
                 <h3>💭 Filosofia</h3>
                 <p>Reflexão sobre ética, conhecimento e sociedade.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Ética</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Política</label>
@@ -570,10 +617,8 @@
             <div class="materia">
                 <h3>👥 Sociologia</h3>
                 <p>Estudo da sociedade e das relações humanas.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Cultura</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Desigualdade social</label>
@@ -586,10 +631,8 @@
             <div class="materia">
                 <h3>🎨 Artes</h3>
                 <p>Estudo da criatividade e das diferentes formas de arte.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Artes visuais</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Música</label>
@@ -602,10 +645,8 @@
             <div class="materia">
                 <h3>🏃 Educação Física</h3>
                 <p>Estudo dos esportes, saúde e atividades físicas.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Esportes</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Jogos</label>
@@ -618,10 +659,8 @@
             <div class="materia">
                 <h3>🎯 Projeto de Vida</h3>
                 <p>Planejamento pessoal, acadêmico e profissional.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Objetivos pessoais</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Planejamento</label>
@@ -634,10 +673,8 @@
             <div class="materia">
                 <h3>💻 S.O. — Sistemas Operacionais</h3>
                 <p>Estudo dos sistemas que gerenciam computadores.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Windows e Linux</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Arquivos e pastas</label>
@@ -650,10 +687,8 @@
             <div class="materia">
                 <h3>☕ POO Java</h3>
                 <p>Programação Orientada a Objetos utilizando Java.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Classes e objetos</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Atributos</label>
@@ -666,10 +701,8 @@
             <div class="materia">
                 <h3>🖥️ AMC</h3>
                 <p>Arquitetura e Manutenção de Computadores.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Componentes</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Placa-mãe</label>
@@ -682,10 +715,8 @@
             <div class="materia">
                 <h3>🤖 N.R. — Noções de Robótica</h3>
                 <p>Introdução à robótica e automação.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Sensores</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Atuadores</label>
@@ -698,10 +729,8 @@
             <div class="materia">
                 <h3>🌐 P.W. — Programação Web</h3>
                 <p>Desenvolvimento de páginas para a internet.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> HTML</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> CSS</label>
@@ -714,10 +743,8 @@
             <div class="materia">
                 <h3>💰 Educação Financeira</h3>
                 <p>Organização e planejamento financeiro.</p>
-
                 <button onclick="mostrar(this)">Ver conteúdos</button>
                 <button class="btn-verde" onclick="estudar(this)">Estudar</button>
-
                 <div class="conteudo">
                     <label><input type="checkbox" onchange="salvarProgresso()"> Orçamento</label>
                     <label><input type="checkbox" onchange="salvarProgresso()"> Economia</label>
@@ -738,6 +765,7 @@
         <div class="controles">
             <input type="text" id="novaTarefa"
                    placeholder="Ex: Estudar Física">
+
             <select id="diaTarefa">
                 <option>Segunda-feira</option>
                 <option>Terça-feira</option>
@@ -788,17 +816,9 @@
 
         <div id="tempo">25:00</div>
 
-        <button onclick="iniciarPomodoro()">
-            ▶️ Iniciar
-        </button>
-
-        <button onclick="pausarPomodoro()" class="btn-cinza">
-            ⏸️ Pausar
-        </button>
-
-        <button onclick="reiniciarPomodoro()" class="btn-vermelho">
-            🔄 Reiniciar
-        </button>
+        <button onclick="iniciarPomodoro()">▶️ Iniciar</button>
+        <button onclick="pausarPomodoro()" class="btn-cinza">⏸️ Pausar</button>
+        <button onclick="reiniciarPomodoro()" class="btn-vermelho">🔄 Reiniciar</button>
 
         <p>
             Sugestão: faça 25 minutos de foco e depois uma pausa curta.
@@ -867,9 +887,7 @@
             </label>
         </div>
 
-        <button onclick="corrigirQuiz()">
-            ✅ Corrigir Quiz
-        </button>
+        <button onclick="corrigirQuiz()">✅ Corrigir Quiz</button>
 
         <p id="resultado"></p>
     </section>
@@ -886,15 +904,12 @@
     <p>📚 Portal de Estudos 2.0</p>
     <p>Projeto de Programação Web — 2º Ano do Ensino Médio</p>
 </footer>
-
 <script>
 
     /* ABRIR CONTEÚDO */
 
     function mostrar(botao) {
-
-        let conteudo =
-            botao.parentElement.querySelector(".conteudo");
+        let conteudo = botao.parentElement.querySelector(".conteudo");
 
         if (conteudo.style.display === "block") {
             conteudo.style.display = "none";
@@ -905,11 +920,9 @@
         }
     }
 
-
     /* MARCAR MATÉRIA COMO ESTUDADA */
 
     function estudar(botao) {
-
         let materia = botao.parentElement;
 
         materia.classList.toggle("concluida");
@@ -921,60 +934,40 @@
         }
 
         atualizarProgresso();
-
         registrarDia();
     }
-
 
     /* PROGRESSO */
 
     function atualizarProgresso() {
-
-        let materias =
-            document.querySelectorAll(".materia");
-
-        let estudadas =
-            document.querySelectorAll(".materia.concluida");
+        let materias = document.querySelectorAll(".materia");
+        let estudadas = document.querySelectorAll(".materia.concluida");
 
         let total = materias.length;
         let quantidade = estudadas.length;
 
-        let porcentagem =
-            Math.round((quantidade / total) * 100);
+        let porcentagem = Math.round((quantidade / total) * 100);
 
-        document.getElementById("materiasEstudadas")
-            .textContent = quantidade;
+        document.getElementById("materiasEstudadas").textContent = quantidade;
+        document.getElementById("porcentagem").textContent = porcentagem + "%";
 
-        document.getElementById("porcentagem")
-            .textContent = porcentagem + "%";
-
-        document.getElementById("textoProgresso")
-            .textContent =
+        document.getElementById("textoProgresso").textContent =
             "Você estudou " + quantidade +
             " de " + total +
             " matérias (" + porcentagem + "%).";
 
-        document.getElementById("barraProgresso")
-            .style.width = porcentagem + "%";
+        document.getElementById("barraProgresso").style.width =
+            porcentagem + "%";
     }
-
 
     /* PESQUISA */
 
     function pesquisar() {
-
-        let texto =
-            document.getElementById("pesquisa")
-            .value.toLowerCase();
-
-        let materias =
-            document.querySelectorAll(".materia");
+        let texto = document.getElementById("pesquisa").value.toLowerCase();
+        let materias = document.querySelectorAll(".materia");
 
         materias.forEach(function(materia) {
-
-            let nome =
-                materia.querySelector("h3")
-                .textContent.toLowerCase();
+            let nome = materia.querySelector("h3").textContent.toLowerCase();
 
             if (nome.includes(texto)) {
                 materia.style.display = "block";
@@ -984,11 +977,9 @@
         });
     }
 
-
     /* MODO ESCURO */
 
     function modoEscuro() {
-
         document.body.classList.toggle("escuro");
 
         if (document.body.classList.contains("escuro")) {
@@ -998,55 +989,39 @@
         }
     }
 
-
     /* ANOTAÇÕES */
 
     function salvarAnotacoes() {
-
-        let texto =
-            document.getElementById("anotacoesTexto").value;
+        let texto = document.getElementById("anotacoesTexto").value;
 
         localStorage.setItem("anotacoes", texto);
 
-        document.getElementById("mensagemAnotacao")
-            .textContent =
+        document.getElementById("mensagemAnotacao").textContent =
             "✅ Anotações salvas!";
     }
 
-
     function apagarAnotacoes() {
-
         if (confirm("Tem certeza que deseja apagar suas anotações?")) {
-
-            document.getElementById("anotacoesTexto")
-                .value = "";
-
+            document.getElementById("anotacoesTexto").value = "";
             localStorage.removeItem("anotacoes");
 
-            document.getElementById("mensagemAnotacao")
-                .textContent =
+            document.getElementById("mensagemAnotacao").textContent =
                 "🗑️ Anotações apagadas.";
         }
     }
 
-
     /* TAREFAS */
 
     function adicionarTarefa() {
-
-        let texto =
-            document.getElementById("novaTarefa").value;
-
-        let dia =
-            document.getElementById("diaTarefa").value;
+        let texto = document.getElementById("novaTarefa").value;
+        let dia = document.getElementById("diaTarefa").value;
 
         if (texto.trim() === "") {
             alert("Digite uma tarefa primeiro!");
             return;
         }
 
-        let tarefas =
-            JSON.parse(localStorage.getItem("tarefas")) || [];
+        let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
         tarefas.push({
             texto: texto,
@@ -1054,31 +1029,21 @@
             concluida: false
         });
 
-        localStorage.setItem(
-            "tarefas",
-            JSON.stringify(tarefas)
-        );
+        localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
         document.getElementById("novaTarefa").value = "";
 
         mostrarTarefas();
     }
 
-
     function mostrarTarefas() {
-
-        let tarefas =
-            JSON.parse(localStorage.getItem("tarefas")) || [];
-
-        let lista =
-            document.getElementById("listaTarefas");
+        let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+        let lista = document.getElementById("listaTarefas");
 
         lista.innerHTML = "";
 
         tarefas.forEach(function(tarefa, indice) {
-
-            let div =
-                document.createElement("div");
+            let div = document.createElement("div");
 
             div.className = "tarefa";
 
@@ -1100,39 +1065,25 @@
         });
     }
 
-
     function concluirTarefa(indice) {
+        let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
-        let tarefas =
-            JSON.parse(localStorage.getItem("tarefas")) || [];
+        tarefas[indice].concluida = !tarefas[indice].concluida;
 
-        tarefas[indice].concluida =
-            !tarefas[indice].concluida;
-
-        localStorage.setItem(
-            "tarefas",
-            JSON.stringify(tarefas)
-        );
+        localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
         mostrarTarefas();
     }
 
-
     function removerTarefa(indice) {
-
-        let tarefas =
-            JSON.parse(localStorage.getItem("tarefas")) || [];
+        let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
         tarefas.splice(indice, 1);
 
-        localStorage.setItem(
-            "tarefas",
-            JSON.stringify(tarefas)
-        );
+        localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
         mostrarTarefas();
     }
-
 
     /* POMODORO */
 
@@ -1140,67 +1091,49 @@
     let intervalo = null;
 
     function atualizarTempo() {
+        let minutos = Math.floor(segundos / 60);
+        let seg = segundos % 60;
 
-        let minutos =
-            Math.floor(segundos / 60);
-
-        let seg =
-            segundos % 60;
-
-        document.getElementById("tempo")
-            .textContent =
+        document.getElementById("tempo").textContent =
             String(minutos).padStart(2, "0") +
             ":" +
             String(seg).padStart(2, "0");
     }
 
-
     function iniciarPomodoro() {
-
         if (intervalo !== null) {
             return;
         }
 
-        document.getElementById("statusPomodoro")
-            .textContent =
+        document.getElementById("statusPomodoro").textContent =
             "📚 Foco total! Continue estudando.";
 
-        intervalo =
-            setInterval(function() {
+        intervalo = setInterval(function() {
+            segundos--;
 
-                segundos--;
+            atualizarTempo();
 
-                atualizarTempo();
+            if (segundos <= 0) {
+                clearInterval(intervalo);
+                intervalo = null;
 
-                if (segundos <= 0) {
+                alert("⏰ Tempo terminado! Faça uma pausa.");
 
-                    clearInterval(intervalo);
-                    intervalo = null;
-
-                    alert("⏰ Tempo terminado! Faça uma pausa.");
-
-                    document.getElementById("statusPomodoro")
-                        .textContent =
-                        "☕ Hora de fazer uma pausa!";
-                }
-
-            }, 1000);
+                document.getElementById("statusPomodoro").textContent =
+                    "☕ Hora de fazer uma pausa!";
+            }
+        }, 1000);
     }
 
-
     function pausarPomodoro() {
-
         clearInterval(intervalo);
         intervalo = null;
 
-        document.getElementById("statusPomodoro")
-            .textContent =
+        document.getElementById("statusPomodoro").textContent =
             "⏸️ Cronômetro pausado.";
     }
 
-
     function reiniciarPomodoro() {
-
         clearInterval(intervalo);
         intervalo = null;
 
@@ -1208,27 +1141,18 @@
 
         atualizarTempo();
 
-        document.getElementById("statusPomodoro")
-            .textContent =
+        document.getElementById("statusPomodoro").textContent =
             "Hora de estudar!";
     }
-
 
     /* QUIZ */
 
     function corrigirQuiz() {
-
         let pontos = 0;
 
-        let q1 =
-            document.querySelector('input[name="q1"]:checked');
-
-        let q2 =
-            document.querySelector('input[name="q2"]:checked');
-
-        let q3 =
-            document.querySelector('input[name="q3"]:checked');
-
+        let q1 = document.querySelector('input[name="q1"]:checked');
+        let q2 = document.querySelector('input[name="q2"]:checked');
+        let q3 = document.querySelector('input[name="q3"]:checked');
 
         if (q1 && q1.value === "html") {
             pontos++;
@@ -1242,10 +1166,7 @@
             pontos++;
         }
 
-
-        let resultado =
-            document.getElementById("resultado");
-
+        let resultado = document.getElementById("resultado");
 
         if (pontos === 3) {
             resultado.textContent =
@@ -1262,40 +1183,28 @@
         }
     }
 
-
     /* CONTADOR DE DIAS */
 
     function registrarDia() {
+        let hoje = new Date().toLocaleDateString();
 
-        let hoje =
-            new Date().toLocaleDateString();
-
-        let dias =
-            JSON.parse(localStorage.getItem("dias")) || [];
+        let dias = JSON.parse(localStorage.getItem("dias")) || [];
 
         if (!dias.includes(hoje)) {
-
             dias.push(hoje);
 
-            localStorage.setItem(
-                "dias",
-                JSON.stringify(dias)
-            );
+            localStorage.setItem("dias", JSON.stringify(dias));
         }
 
-        document.getElementById("diasEstudo")
-            .textContent = dias.length;
+        document.getElementById("diasEstudo").textContent = dias.length;
     }
-
 
     /* SALVAR CHECKBOXES */
 
     function salvarProgresso() {
-
-        let caixas =
-            document.querySelectorAll(
-                ".conteudo input[type='checkbox']"
-            );
+        let caixas = document.querySelectorAll(
+            ".conteudo input[type='checkbox']"
+        );
 
         let estado = [];
 
@@ -1303,63 +1212,97 @@
             estado.push(caixa.checked);
         });
 
-        localStorage.setItem(
-            "checkboxes",
-            JSON.stringify(estado)
-        );
+        localStorage.setItem("checkboxes", JSON.stringify(estado));
     }
 
-
     function carregarCheckboxes() {
-
-        let estado =
-            JSON.parse(localStorage.getItem("checkboxes"));
+        let estado = JSON.parse(localStorage.getItem("checkboxes"));
 
         if (!estado) {
             return;
         }
 
-        let caixas =
-            document.querySelectorAll(
-                ".conteudo input[type='checkbox']"
-            );
+        let caixas = document.querySelectorAll(
+            ".conteudo input[type='checkbox']"
+        );
 
         caixas.forEach(function(caixa, indice) {
-
             if (estado[indice] !== undefined) {
                 caixa.checked = estado[indice];
             }
         });
     }
 
+    /* FOTO DO ALUNO */
+
+    function carregarFoto(event) {
+        const arquivo = event.target.files[0];
+
+        if (!arquivo) return;
+
+        if (!arquivo.type.startsWith("image/")) {
+            alert("Selecione um arquivo de imagem.");
+            event.target.value = "";
+            return;
+        }
+
+        const leitor = new FileReader();
+
+        leitor.onload = function(e) {
+            const imagem = e.target.result;
+
+            document.getElementById("fotoPerfil").src = imagem;
+
+            try {
+                localStorage.setItem("fotoPerfil", imagem);
+
+                document.getElementById("mensagemFoto").textContent =
+                    "✅ Foto carregada e salva neste navegador!";
+            } catch (erro) {
+                document.getElementById("mensagemFoto").textContent =
+                    "Foto exibida, mas não foi possível salvá-la. Tente uma imagem menor.";
+            }
+        };
+
+        leitor.readAsDataURL(arquivo);
+    }
+
+    function removerFoto() {
+        localStorage.removeItem("fotoPerfil");
+
+        document.getElementById("fotoPerfil").src =
+            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' rx='75' fill='%23e5edf5'/%3E%3Ctext x='75' y='88' text-anchor='middle' font-size='52'%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E";
+
+        document.getElementById("arquivoFoto").value = "";
+
+        document.getElementById("mensagemFoto").textContent =
+            "Foto removida.";
+    }
 
     /* CARREGAR DADOS */
 
     window.onload = function() {
+        const fotoSalva = localStorage.getItem("fotoPerfil");
 
-        let anotacoes =
-            localStorage.getItem("anotacoes");
-
-        if (anotacoes) {
-            document.getElementById("anotacoesTexto")
-                .value = anotacoes;
+        if (fotoSalva) {
+            document.getElementById("fotoPerfil").src = fotoSalva;
         }
 
+        let anotacoes = localStorage.getItem("anotacoes");
 
-        let tema =
-            localStorage.getItem("tema");
+        if (anotacoes) {
+            document.getElementById("anotacoesTexto").value = anotacoes;
+        }
+
+        let tema = localStorage.getItem("tema");
 
         if (tema === "escuro") {
             document.body.classList.add("escuro");
         }
 
+        let dias = JSON.parse(localStorage.getItem("dias")) || [];
 
-        let dias =
-            JSON.parse(localStorage.getItem("dias")) || [];
-
-        document.getElementById("diasEstudo")
-            .textContent = dias.length;
-
+        document.getElementById("diasEstudo").textContent = dias.length;
 
         carregarCheckboxes();
         mostrarTarefas();
@@ -1371,4 +1314,3 @@
 
 </body>
 </html>
-```
